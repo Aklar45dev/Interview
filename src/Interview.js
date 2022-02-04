@@ -4,7 +4,6 @@ import $ from 'jquery'
 import { useRecordWebcam } from 'react-record-webcam'
 import firebase from './firebase'
 import videoUrls from './videoUrls'
-import Spinner from './Spinner'
 import VideoPlayer from './components/VideoPlayer'
 
 const Interview = () => {
@@ -14,12 +13,12 @@ const Interview = () => {
     const [urls, setUrls] = useState([])
     const [interviewId, setInterviewId] = useState(0)
     const [file, setFile] = useState(null)
-    const interviewVideos = videoUrls.interviewVideos
+    const interviewVideos = videoUrls.interviewVideos 
         
     useEffect(() => {
         UpdateState()
-        $("#recording").css({'display':'block', 'width': '50%', 'padding-left':'25%'})
-        $("#preview").css({'display':'none', 'width': '50%', 'padding-left':'25%'})
+        $("#recording").css({'display':'block'})
+        $("#preview").css({'display':'none'})
         $("#start").css({'display':'none'})
         $("#stop").css({'display':'none'})
         $("#play").css({'display':'none'})
@@ -29,9 +28,12 @@ const Interview = () => {
         $("#load-spinner").css({'display':'none'})
         $("#rec").css({'display':'none'})
         $("#recording").css({'display':'none'})
-        $("#start").css({'border': '4px solid rgb(0, 155, 255)', 'color': 'rgba(0, 155, 255, 1)'})
-        $("#stop").css({'border': '4px solid rgb(255, 0, 0)', 'color': 'rgba(255, 0, 0, 1)'})
-        $("#retake").css({'border': '4px solid rgb(255, 80, 0)', 'color': 'rgba(255, 80, 0, 1)'})
+        $("#currentAnswer").css({'display':'none'})
+        $("#start").css({'border': '2.5px solid rgb(0, 255, 0)', 'color': 'rgba(0, 255, 0, 1)'})
+        $("#stop").css({'border': '2.5px solid rgb(255, 0, 0)', 'color': 'rgba(255, 0, 0, 1)'})
+        $("#retake").css({'border': '2.5px solid rgb(255, 80, 0)', 'color': 'rgba(255, 80, 0, 1)'})
+        $("#open").css({'border': '2.5px solid rgb(255, 80, 0)', 'color': 'rgba(255, 80, 0, 1)'})
+        $("#upload").css({'border': '2.5px solid rgb(23, 169, 255)', 'color': 'rgba(23, 169, 255, 1)'})
     },[])
 
     const recordWebcam = useRecordWebcam();
@@ -39,6 +41,7 @@ const Interview = () => {
     const CreateFile = async () => {
         $("#retake").css({'display':'inline'})
         $("#stop").css({'display':'none'})
+        $("#burger-container").css({'display':'none'})
         $("#next").css({'display':'none'})
         $("#upload").css({'display':'inline'})
         $("#play").css({'display':'inline'})
@@ -116,23 +119,27 @@ const Interview = () => {
         $("#play").css({'display':'none'})
         $("#upload").css({'display':'none'})
         $("#next").css({'display':'none'})
-        
+        $("#burger-container").css({'display':'flex'})
     }
 
     const endPlay = () => {
+        $("#currentAnswer").css({'display':'flex'})
         $("#video-wrapper").css({'display':'none'})
         $("#recorder-container").css({'display':'block'})
         $("#question-selector").css({'display':'none'})
+        document.getElementById("currentAnswer").play()
     }
 
     const nextQuestion = () => {
         closeCamera()
         setInterviewId(interviewId+1)
+        $("#currentAnswer").css({'display':'none'})
         $("#question-selector").css({'display':'flex'})
         $("#video-wrapper").css({'display':'flex'})
         $("#recorder-container").css({'display':'none'})
         $("#load-spinner").css({'display':'none'})
         $("#recording").css({'display':'none'})
+        $("#burger-container").css({'display':'flex'})
         if(interviewVideos[interviewId+1] === undefined){
             $("#end-ui").css({'display':'flex'})
             $("#video-wrapper").css({'display':'none'})
@@ -201,29 +208,31 @@ const Interview = () => {
 
     return (
         <div className='no-scroll'>
+            <div className='page-title-video'>Enregistrer</div>
             <div id="question-selector" className="video-selector">
                 <button className="select-btn" onClick={() => setQuestionId(-1)}>-</button>
                 <p className='question-id'>{interviewId+1}</p>
                 <button className="select-btn" onClick={() => setQuestionId(1)}>+</button>
             </div>
             <div className='upload-spinner' id='load-spinner'>chargement...</div>
-            <VideoPlayer id="mainVideo" src={interviewVideos[interviewId]} end={endPlay} title={interviewId} />
+            <VideoPlayer id="mainVideo" src={interviewVideos[interviewId]} end={endPlay} title={`Question ${interviewId+1}`} />
             <div id="recorder-container">
                 <div className='btns-recording'>
-                    <button className='record-btn' id="open" onClick={() => openCamera()}>Caméra</button>
+                    <button className='record-btn' id="open" onClick={() => openCamera()}>Webcam</button>
                     <button className='record-btn' id="start" onClick={() => startCamera()}>Enregistrer</button>
-                    <button className='record-btn' id="retake" onClick={() => retakeRecord()}>Reprendre</button>
-                    <button className='record-btn' id="stop" onClick={() => CreateFile()}>Arrêter</button>
                     <button className='record-btn' id="play" onClick={() => playPreview()}>Jouer</button>
+                    <button className='record-btn' id="retake" onClick={() => retakeRecord()}>Reprendre</button>
+                    <button className='record-btn' id="stop" onClick={() => CreateFile()}>Stop</button>
                     <button className='record-btn' id="upload" onClick={() => handleUpload()}>Savegarder</button>
-                    <button className='record-btn' id="next" onClick={() => nextQuestion()}>Continuer</button>
+                    <button className='record-btn' id="next" onClick={() => nextQuestion()}>Ok</button>
                     <button id="rec" className="Rec button-rec">Recording</button>
                 </div>
-                <video id="recording" ref={recordWebcam.webcamRef} autoPlay muted />
-                <video id="preview" ref={recordWebcam.previewRef} autoPlay />
+                <video id="recording" className="record-video-canvas" ref={recordWebcam.webcamRef} autoPlay muted/>
+                <video id="preview" className="record-video-canvas" ref={recordWebcam.previewRef} autoPlay />
+                <video id="currentAnswer" className="record-video-canvas" src={urls[interviewId]} />
             </div>
             <div className='replay-container' id="end-ui">
-                <a className='record-btn' href='./interview'>Regarder</a>
+                <a className='startBtn' href='./interview'>Regarder</a>
             </div>
         </div>
     )

@@ -16,15 +16,18 @@ time, mark, audio, video {
 	border: 0;
 }
 
-
-
-
 html{
   overflow-y: hidden;
 }
 
 .btns-recording{
-  padding-left: 25%
+  display:flex;
+  justify-content: center;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  z-index: 10;
+  background-color:rgba(0, 0, 0, 0);
+  position:relative
 }
 
 .upload-spinner{
@@ -33,7 +36,7 @@ html{
 }
 
 .record-btn{
-  border: 3px solid rgb(255, 255, 255);
+  border: 2.5px solid rgb(255, 255, 255);
   color: rgba(255, 255, 255, 1);
   background-color:rgba(0, 119, 255, 0);
   border-radius: 0.5em;
@@ -63,6 +66,20 @@ html{
   opacity: 1;
  }
 
+ .page-title-video{
+   display: flex;
+   color: white;
+   font-weight: 500;
+   justify-content: center;
+   margin-top: 0.25em;
+   font-size: 1.5em;
+ }
+
+ .record-video-canvas{
+   width:50%;
+   padding-left: 25%;
+ }
+
  .select-btn{
   border: 0px solid rgb(255, 255, 255);
   color: rgba(255, 255, 255, 1);
@@ -74,7 +91,10 @@ html{
   cursor: pointer;
   filter: brightness(1);
   font-weight: 500;
-  margin: 0.5em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   transition: 0.2s;
@@ -97,7 +117,7 @@ html{
 	background-color: red;
 	border: 0;
 	border-radius: 35px;
-	margin: 18px;
+	margin: 6px;
 	outline: none;
 }
 
@@ -890,15 +910,15 @@ a {
 }
 
 #mainVideo{
-  width: 87%;
+  width: 75%;
 }
 
 .replay-container{
   position: absolute;
   display: flex;
   width: 100%;
-  padding-top: 25em;
-  padding-bottom: 80%;
+  padding-top: 5em;
+  padding-bottom: 150%;
   justify-content: center;
   z-index: 1;
   background-color: #000;
@@ -1528,8 +1548,8 @@ label{
 }
 
 .startBtn{
-  border: 3px solid rgb(255, 70, 0);
-  color: rgba(255, 70, 0, 1);
+  border: 2px solid rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 1);
   background-color:rgba(0, 119, 255, 0);
   margin: 5em;
   padding: 0.6em;
@@ -1538,10 +1558,10 @@ label{
   border-radius: 2em;
   opacity: 1;
   position: absolute;
-  font-size: 2em;
+  font-size: 1.5em;
   cursor: pointer;
-  filter: brightness(0.8);
-  font-weight: 500;
+  filter: brightness(1);
+  font-weight: 400;
   text-transform: uppercase;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
@@ -1550,7 +1570,7 @@ label{
 }
 
 .startBtn:hover{
-  filter: brightness(1);
+  filter: brightness(0.8);
  transition: 0.2s;
 }
 
@@ -1805,8 +1825,8 @@ label{
   }
 
   .startBtn{
-    border: 3px solid rgb(255, 70, 0);
-    color: rgba(255, 70, 0, 1);
+    border: 2px solid rgb(255, 255, 255);
+    color: rgba(255, 255, 255, 1);
     background-color:rgba(0, 119, 255, 0);
     margin: 0em;
     padding: 0.6em;
@@ -1815,7 +1835,7 @@ label{
     border-radius: 2em;
     opacity: 1;
     position: absolute;
-    font-size: 1.25em;
+    font-size: 1em;
     cursor: pointer;
     opacity: 1;
     font-weight: 500;
@@ -2010,6 +2030,11 @@ label{
   padding-right: 1em;
   box-shadow: -3px 3px 40px #000;
   pointer-events: none;
+}
+
+.record-video-canvas{
+  width:100%;
+  padding-left: 0;
 }
 
 }

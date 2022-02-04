@@ -89,7 +89,7 @@ const VideoPlayer = ({src, end, title}) => {
                     <img src="/images/next.png" width="90" height="90" alt="play" />
                 </button>
             </div>
-            <VideoToolBar title={`Question ${title+1}`}/>
+            <VideoToolBar title={title}/>
         </div>
     )
 

@@ -14,7 +14,7 @@ const Home = () => {
     return (
         <div>
             <div className='home-container'>
-                <video id='homeVid' className="homeVideo" src="https://formation-video-cfpvd.s3.ca-central-1.amazonaws.com/Ch2+situation+initiale_1.mp4" preload="auto" autoPlay='autoplay' loop muted/>
+                <video id='homeVid' className="homeVideo" src="https://cfp-secretariat.s3.us-east-2.amazonaws.com/y2meta.com+-+Capsule+secr%C3%A9tariat+-+Employeur.mp4" preload="auto" autoPlay='autoplay' loop muted/>
                 <Link to='/recording' className='startBtn'>Commencer</Link>
             </div>
         </div>
