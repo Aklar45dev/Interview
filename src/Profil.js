@@ -45,11 +45,35 @@ const Profil = () => {
         setInterviewId(interviewId+1)
         if(urls[interviewId+1] === undefined){
             $("#replay-ui").css({'display':'flex'})
+            $("#question-selector").css({'display':'none'})
         }
     }
+
+    const setQuestionId = (num) => {
+        console.log()
+        if(interviewId+num >= 0){
+            if(num == -1){
+                setInterviewId(interviewId+num)
+                return
+            }
+        }
+        if(interviewId+num <= urls.length-1){
+            if(num == 1){
+                setInterviewId(interviewId+num)
+            }
+            return
+        }
+        endPlay()
+    }
+
     
     return (
         <div className='no-scroll'>
+            <div id="question-selector" className="video-selector">
+                <button className="select-btn" onClick={() => setQuestionId(-1)}>-</button>
+                <p className='question-id'>{interviewId+1}</p>
+                <button className="select-btn" onClick={() => setQuestionId(1)}>+</button>
+            </div>
             <div className='replay-container' id="replay-ui">
                 <button className='record-btn' onClick={() => reload()}>Revoir</button>
             </div>

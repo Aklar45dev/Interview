@@ -8,7 +8,8 @@ const VideoPlayer = ({src, end, title}) => {
     const [videoEnded, setVideoEnded] = useState(false)
 
     useEffect(() => {
-    })
+        mouseMove()
+    },[])
 
     const HandlePlay = () => {
         mouseMove()

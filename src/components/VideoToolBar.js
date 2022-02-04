@@ -18,7 +18,12 @@ const VideoToolBar = (props) => {
                 secs = `0${secs}`
             }
             if(!isNaN(document.getElementById("mainVideo").duration)){
-                document.getElementById("totalDuration").innerHTML = `${mins}:${secs}`
+                if(isFinite(secs)){
+                    document.getElementById("totalDuration").innerHTML = `${mins}:${secs}`
+                }
+                if(!isFinite(secs)){
+                    document.getElementById("totalDuration").innerHTML = `0:00`
+                }
                 document.getElementById("currentPlayTime").innerHTML = `${currentMins}:${currentSecs}`
                 let timeRatio = ((document.getElementById("mainVideo").currentTime)/(document.getElementById("mainVideo").duration))*100
                 document.getElementById("inside").style.width = `${timeRatio}%`

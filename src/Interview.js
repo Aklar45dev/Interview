@@ -122,11 +122,13 @@ const Interview = () => {
     const endPlay = () => {
         $("#video-wrapper").css({'display':'none'})
         $("#recorder-container").css({'display':'block'})
+        $("#question-selector").css({'display':'none'})
     }
 
     const nextQuestion = () => {
         closeCamera()
         setInterviewId(interviewId+1)
+        $("#question-selector").css({'display':'flex'})
         $("#video-wrapper").css({'display':'flex'})
         $("#recorder-container").css({'display':'none'})
         $("#load-spinner").css({'display':'none'})
@@ -134,6 +136,7 @@ const Interview = () => {
         if(interviewVideos[interviewId+1] === undefined){
             $("#end-ui").css({'display':'flex'})
             $("#video-wrapper").css({'display':'none'})
+            $("#question-selector").css({'display':'none'})
         }
     }
 
@@ -181,8 +184,28 @@ const Interview = () => {
             )
     }
 
+    const setQuestionId = (num) => {
+        if(interviewId+num >= 0){
+            if(num == -1){
+                setInterviewId(interviewId+num)
+                return
+            }
+        }
+        if(interviewId+num <= interviewVideos.length-1){
+            if(num == 1){
+                setInterviewId(interviewId+num)
+                return
+            }
+        }
+    }
+
     return (
         <div className='no-scroll'>
+            <div id="question-selector" className="video-selector">
+                <button className="select-btn" onClick={() => setQuestionId(-1)}>-</button>
+                <p className='question-id'>{interviewId+1}</p>
+                <button className="select-btn" onClick={() => setQuestionId(1)}>+</button>
+            </div>
             <div className='upload-spinner' id='load-spinner'>chargement...</div>
             <VideoPlayer id="mainVideo" src={interviewVideos[interviewId]} end={endPlay} title={interviewId} />
             <div id="recorder-container">
@@ -193,16 +216,15 @@ const Interview = () => {
                     <button className='record-btn' id="stop" onClick={() => CreateFile()}>Arrêter</button>
                     <button className='record-btn' id="play" onClick={() => playPreview()}>Jouer</button>
                     <button className='record-btn' id="upload" onClick={() => handleUpload()}>Savegarder</button>
-                    <button className='record-btn' id="next" onClick={() => nextQuestion()}>Suivant</button>
+                    <button className='record-btn' id="next" onClick={() => nextQuestion()}>Continuer</button>
                     <button id="rec" className="Rec button-rec">Recording</button>
                 </div>
                 <video id="recording" ref={recordWebcam.webcamRef} autoPlay muted />
                 <video id="preview" ref={recordWebcam.previewRef} autoPlay />
             </div>
             <div className='replay-container' id="end-ui">
-                <a className='record-btn' href='./interview' >Résultats</a>
+                <a className='record-btn' href='./interview'>Regarder</a>
             </div>
-
         </div>
     )
 }
