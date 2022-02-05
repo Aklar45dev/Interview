@@ -7,6 +7,7 @@ import Interview from './Interview'
 import Login from './Login'
 import Register from './SignIn'
 import Profile from './Profil'
+import Admin from './Admin'
 import $ from 'jquery'
 import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom'
 import firebase from './firebase'
@@ -76,10 +77,6 @@ const App = () => {
       <div className='menu-container' id='menu' >
         <div id='sideBar-container'>
           <div className='item-container'>
-            {email === 'admin@gmail.com' ? <div className='item-row' onClick={() => toggleMenu()}>
-              <img alt="img" src='../images/admin.png' />
-              <Link className="menu-text" to="/dashboard">Administrateur</Link>
-            </div> : <div/>}
             <div className='item-row' onClick={() => toggleMenu()}>
               <img alt="img" src='../images/home.png' />
               <Link className="menu-text" to="/">Accueil</Link>
@@ -95,6 +92,10 @@ const App = () => {
                 email: email
                 }}>Interview</Link>
             </div>
+            {email === 'admin@gmail.com' ? <div className='item-row' onClick={() => toggleMenu()}>
+              <img alt="img" src='../images/admin.png' />
+              <Link className="menu-text" to="/dashboard">Administrateur</Link>
+            </div> : <div/>}
             <div className='item-row' onClick={() => toggleMenu()}>
               <img alt="img" src='../images/login.png' />
               <Link to="./login" onClick={() => logout()} className="menu-text">Quitter</Link>
@@ -109,6 +110,7 @@ const App = () => {
       </Switch> : 
       <Switch>
         <Route path='/recording' component={Interview} />
+        <Route path='/dashboard' component={Admin} />
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
         <Route path='/interview' component={Profile} />

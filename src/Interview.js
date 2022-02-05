@@ -13,6 +13,7 @@ const Interview = () => {
     const [urls, setUrls] = useState([])
     const [interviewId, setInterviewId] = useState(0)
     const [file, setFile] = useState(null)
+    const [preview, setPreview] = useState(true)
     const interviewVideos = videoUrls.interviewVideos 
         
     useEffect(() => {
@@ -39,6 +40,7 @@ const Interview = () => {
     const recordWebcam = useRecordWebcam();
 
     const CreateFile = async () => {
+        setPreview(false)
         $("#retake").css({'display':'inline'})
         $("#stop").css({'display':'none'})
         $("#burger-container").css({'display':'none'})
@@ -74,17 +76,29 @@ const Interview = () => {
     }
 
     const playPreview = () => {
-        document.getElementById("preview").play()
+        if(preview){
+            document.getElementById("currentAnswer").play()
+        }
+        if(!preview){
+            document.getElementById("preview").play()
+        }
+    }
+
+    const stopPreview = () => {
+        document.getElementById("preview").pause()
+        document.getElementById("currentAnswer").pause()
     }
 
     const startCamera = () => {
         recordWebcam.start()
+        $("#play").css({'display':'none'})
         $("#recording").css({'display':'block'})
         $("#preview").css({'display':'none'})
         $("#start").css({'display':'none'})
         $("#next").css({'display':'none'})
         $("#stop").css({'display':'inline'})
         $("#rec").css({'display':'inline'})
+        $("#currentAnswer").css({'display':'none'})
     }
 
     const openCamera = () => {
@@ -95,6 +109,9 @@ const Interview = () => {
         $("#open").css({'display':'none'})
         $("#upload").css({'display':'none'})
         $("#next").css({'display':'none'})
+        $("#currentAnswer").css({'display':'none'})
+        $("#play").css({'display':'none'})
+        stopPreview()
     }
 
     const closeCamera = () => {
@@ -112,6 +129,7 @@ const Interview = () => {
 
     const retakeRecord = () => {
         recordWebcam.retake()
+        stopPreview()
         $("#recording").css({'display':'block'})
         $("#preview").css({'display':'none'})
         $("#retake").css({'display':'none'})
@@ -123,6 +141,8 @@ const Interview = () => {
     }
 
     const endPlay = () => {
+        setPreview(true)
+        $("#play").css({'display':'inline'})
         $("#currentAnswer").css({'display':'flex'})
         $("#video-wrapper").css({'display':'none'})
         $("#recorder-container").css({'display':'block'})
@@ -154,6 +174,7 @@ const Interview = () => {
             $("#next").css({'display':'none'})
             $("#upload").css({'display':'none'})
             $("#preview").css({'display':'none'})
+            $("#currentAnswer").css({'display':'none'})
             const uploadTask = storage.ref(`uploads/${file.name}`).put(file)
             uploadTask.on(
                 "state_changed",
@@ -218,9 +239,9 @@ const Interview = () => {
             <VideoPlayer id="mainVideo" src={interviewVideos[interviewId]} end={endPlay} title={`Question ${interviewId+1}`} />
             <div id="recorder-container">
                 <div className='btns-recording'>
+                    <button className='record-btn' id="play" onClick={() => playPreview()}>Jouer</button>
                     <button className='record-btn' id="open" onClick={() => openCamera()}>Webcam</button>
                     <button className='record-btn' id="start" onClick={() => startCamera()}>Enregistrer</button>
-                    <button className='record-btn' id="play" onClick={() => playPreview()}>Jouer</button>
                     <button className='record-btn' id="retake" onClick={() => retakeRecord()}>Reprendre</button>
                     <button className='record-btn' id="stop" onClick={() => CreateFile()}>Stop</button>
                     <button className='record-btn' id="upload" onClick={() => handleUpload()}>Savegarder</button>

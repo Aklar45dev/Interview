@@ -17,8 +17,69 @@ time, mark, audio, video {
 }
 
 html{
-  overflow-y: hidden;
+  font-family: 'Roboto', sans-serif;
 }
+
+.custom-select {
+  position: relative;
+  font-family: Arial;
+}
+
+.custom-select select {
+  display: none; /*hide original SELECT element:*/
+}
+
+.select-selected {
+  background-color: DodgerBlue;
+}
+
+/*style the arrow inside the select element:*/
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+/*point the arrow upwards when the select box is open (active):*/
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 7px;
+}
+
+/*style the items (options), including the selected item:*/
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+  user-select: none;
+}
+
+/*style items (options):*/
+.select-items {
+  position: absolute;
+  background-color: DodgerBlue;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none;
+}
+
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 
 .btns-recording{
   display:flex;
@@ -27,12 +88,21 @@ html{
   padding-bottom: 0.5em;
   z-index: 10;
   background-color:rgba(0, 0, 0, 0);
-  position:relative
+  position:relative;
+}
+
+.dropMenu{
+  padding: 0.5em;
+  border-radius: 0.5em;
+  font-weight: 500;
+  width: auto;
+
 }
 
 .upload-spinner{
   display: flex;
   color: white;
+  margin-left: 1em
 }
 
 .record-btn{
@@ -43,15 +113,12 @@ html{
   opacity: 1;
   font-size: 1.0em;
   padding: 0.5em;
-  padding-left: 0.6em;
-  padding-right: 0.6em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   cursor: pointer;
   filter: brightness(1);
   font-weight: 700;
-  margin: 0.5em;
-  margin-top: 0.25em;
-  margin-bottom: 0.25em;
-  margin-left: 0em;
+  margin: 0.25em;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
   transition: 0.2s;
@@ -71,13 +138,14 @@ html{
    color: white;
    font-weight: 500;
    justify-content: center;
-   margin-top: 0.25em;
-   font-size: 1.5em;
+   margin-top: 0.5em;
+   font-size: 1.2em;
  }
 
  .record-video-canvas{
    width:50%;
    padding-left: 25%;
+   height: 800px;
  }
 
  .select-btn{
@@ -118,6 +186,7 @@ html{
 	border: 0;
 	border-radius: 35px;
 	margin: 6px;
+	margin-left: 15px;
 	outline: none;
 }
 
@@ -699,7 +768,8 @@ a {
   display: flex;
   justify-content: center;
   width: 100%;
-  align-items: center
+  align-items: center;
+  height: 800px;
 }
 
 .main-control-container{
@@ -1274,13 +1344,13 @@ label{
 .nomModuleText{
   font-size: 1.4em;
   color: white;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 #modules-page .nomModuleText{
   font-size: 1.8em;
   color: white;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .lowerMenu{
@@ -1552,9 +1622,7 @@ label{
   color: rgba(255, 255, 255, 1);
   background-color:rgba(0, 119, 255, 0);
   margin: 5em;
-  padding: 0.6em;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding: 1.6em;
   border-radius: 2em;
   opacity: 1;
   position: absolute;
@@ -1829,9 +1897,7 @@ label{
     color: rgba(255, 255, 255, 1);
     background-color:rgba(0, 119, 255, 0);
     margin: 0em;
-    padding: 0.6em;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding: 1.6em;
     border-radius: 2em;
     opacity: 1;
     position: absolute;
@@ -1913,6 +1979,7 @@ label{
     display: flex;
     justify-content: center;
     width: 100%;
+    height: auto;
   }
 
   .controls-bar {
@@ -1942,7 +2009,7 @@ label{
   .nomModuleText{
     font-size: 1.0em;
     color: white;
-    font-weight: 700;
+    font-weight: 500;
   }
 
   #mainVideo{
@@ -2035,6 +2102,7 @@ label{
 .record-video-canvas{
   width:100%;
   padding-left: 0;
+  height: auto;
 }
 
 }
