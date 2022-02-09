@@ -25,6 +25,7 @@ html{
   font-family: Arial;
 }
 
+
 .custom-select select {
   display: none; /*hide original SELECT element:*/
 }
@@ -145,7 +146,7 @@ html{
  .record-video-canvas{
    width:50%;
    padding-left: 25%;
-   height: 800px;
+   height: auto;
  }
 
  .select-btn{
@@ -321,6 +322,10 @@ html{
 .videoPreview{
   width: 50%;
   height: auto;
+}
+
+.video-preview-content{
+  width: 100%
 }
 
 .answerText{
@@ -705,8 +710,16 @@ progress::-webkit-progress-value {
 
 .logLabel{
   font-size: 1.5em;
-  color:rgb(255, 255, 255);
+  color:rgb(165, 165, 165);
   margin: 0.5em;
+}
+
+.state-label{
+  font-size: 1.5em;
+  color:rgb(165, 165, 165);
+  margin-left: 25%;
+  margin-bottom: 0.25em;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -914,7 +927,7 @@ a {
 
 .homeVideo{
   width: 100%;
-  filter: brightness(0.75);
+  filter: brightness(0.5);
 }
 
 .test-validate-btn{
@@ -1617,7 +1630,21 @@ label{
   top: 0;
 }
 
+.start-container {
+  display: grid;
+  position: absolute;
+}
+
+.text-title-main{
+  color: white;
+  font-size: 4em;
+  font-weight: 500;
+  padding-bottom: 1em;
+}
+
 .startBtn{
+  position: relative;
+  justify-self: center;
   border: 2px solid rgb(255, 255, 255);
   color: rgba(255, 255, 255, 1);
   background-color:rgba(0, 119, 255, 0);
@@ -1625,7 +1652,6 @@ label{
   padding: 1.6em;
   border-radius: 2em;
   opacity: 1;
-  position: absolute;
   font-size: 1.5em;
   cursor: pointer;
   filter: brightness(1);
@@ -1647,9 +1673,9 @@ label{
  }
 
  .logBtn{
-  border: 3px solid rgb(255, 70, 0);
+  border: 3px solid rgb(255, 255, 255);
   border-radius: 1.5em;
-  color: rgba(255, 70, 0, 1);
+  color: rgb(255, 255, 255);
   background-color:rgba(0, 119, 255, 0);
   opacity: 1;
   font-size: 1.5em;
@@ -1706,9 +1732,10 @@ label{
 }
 
 .connection{
-  font-size: 3em;
+  font-size: 2.5em;
   color: rgb(255, 255, 255);
   padding-bottom: 0.25em;
+  font-weight:500
 }
 
 .warning{
@@ -1818,6 +1845,12 @@ label{
     font-weight: 700;
   }
 
+  .state-label{
+    font-size: 1.5em;
+    color:rgb(165, 165, 165);
+    margin: 0.25em;
+  }
+
   .progressRow{
     display: flex;
     width: 100%;
@@ -1893,6 +1926,7 @@ label{
   }
 
   .startBtn{
+    position: relative;
     border: 2px solid rgb(255, 255, 255);
     color: rgba(255, 255, 255, 1);
     background-color:rgba(0, 119, 255, 0);
@@ -1900,7 +1934,6 @@ label{
     padding: 1.6em;
     border-radius: 2em;
     opacity: 1;
-    position: absolute;
     font-size: 1em;
     cursor: pointer;
     opacity: 1;
@@ -2100,9 +2133,17 @@ label{
 }
 
 .record-video-canvas{
+  display: block;
   width:100%;
   padding-left: 0;
   height: auto;
+}
+
+.text-title-main{
+  color: white;
+  font-size: 2em;
+  font-weight: 500;
+  padding-bottom: 1em;
 }
 
 }

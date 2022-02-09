@@ -98,7 +98,7 @@ const Admin = () => {
             </div>
             <div id="question-selector" className="video-selector">
                 <button className="select-btn" onClick={() => setQuestionId(-1)}>-</button>
-                <p className='question-id'>{interviewId+1}</p>
+                <p className='question-id'>{`${interviewId% 2 === 0 ? "Question" : "Réponse"} ${Math.ceil(((interviewId+1)/2)-1)+1}`}</p>
                 <button className="select-btn" onClick={() => setQuestionId(1)}>+</button>
             </div>
             <div className='replay-container' id="replay-ui">

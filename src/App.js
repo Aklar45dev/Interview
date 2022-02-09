@@ -82,15 +82,11 @@ const App = () => {
               <Link className="menu-text" to="/">Accueil</Link>
             </div>
             <div className='item-row' onClick={() => toggleMenu()}>
-              <img alt="img" src='../images/play.png' />
-              <Link className="menu-text" to="/recording">Enregistrer</Link>
-            </div>
-            <div className='item-row' onClick={() => toggleMenu()}>
               <img alt="img" src='../images/profil.png' />
               <Link className="menu-text" to={{
                 pathname: "/interview",
                 email: email
-                }}>Interview</Link>
+                }}>Entretien</Link>
             </div>
             {email === 'admin@gmail.com' ? <div className='item-row' onClick={() => toggleMenu()}>
               <img alt="img" src='../images/admin.png' />

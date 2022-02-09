@@ -15,7 +15,7 @@ const Login = () => {
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             if(email === 'admin@gmail.com'){
-                window.location.href = "/dashboard";
+                window.location.href = "/";
             }
             else {
                 window.location.href = "/";
@@ -36,6 +36,7 @@ const Login = () => {
 
     return (
         <div className='loginGrid'>
+            <h1 className='text-title-main'>Simulation d'entretien</h1>
             <h1 className='connection'>Connexion</h1>
             <div>
                 <p className='logLabel'>Courriel:</p>

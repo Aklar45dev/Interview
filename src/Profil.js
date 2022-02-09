@@ -71,14 +71,14 @@ const Profil = () => {
     
     return (
         <div className='no-scroll'>
-            <div className='page-title-video'>Interview</div>
+            <div className='page-title-video'>Entretien</div>
             <div id="question-selector" className="video-selector">
                 <button className="select-btn" onClick={() => setQuestionId(-1)}>-</button>
-                <p className='question-id'>{interviewId+1}</p>
+                <p className='question-id'>{`${interviewId% 2 === 0 ? "Question" : "Réponse"} ${Math.ceil(((interviewId+1)/2)-1)+1}`}</p>
                 <button className="select-btn" onClick={() => setQuestionId(1)}>+</button>
             </div>
             <div className='replay-container' id="replay-ui">
-                <button className='startBtn' onClick={() => reload()}>Retour</button>
+                <button className='startBtn' onClick={() => reload()}>Revoir</button>
             </div>
             <div id="player" className='video-container no-scroll'>
                 <VideoPlayer id="mainVideo" src={urls[interviewId]} end={endPlay} title={`Question ${Math.ceil(((interviewId+1)/2)-1)+1}`} />

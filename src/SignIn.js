@@ -23,7 +23,7 @@ const SignIn = () => {
     const sendProfil = () => {
         const requestOptions = {
             method: 'POST',
-            body: JSON.stringify({ id: email, name: name+' '+lastname, urls: [] })
+            body: JSON.stringify({ id: email, name: name, urls: [] })
         }
         fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/${email}`, requestOptions)
         .then(() => {
@@ -58,21 +58,18 @@ const SignIn = () => {
 
     return (
         <div className='loginGrid'>
+            <h1 className='text-title-main'>Simulation d'entretien</h1>
             <h1 className='connection'>Inscription</h1>
             <div>
-                <p className='logLabel'>Nom:</p>
+                <p className='logLabel'>Nom complet :</p>
                 <input className='inputBoxLog' type='text' onChange={handleChangeName}/>
             </div>
             <div>
-                <p className='logLabel'>Prénom:</p>
-                <input className='inputBoxLog' type='text' onChange={handleChangeLastname}/>
-            </div>
-            <div>
-                <p className='logLabel'>Courriel:</p>
+                <p className='logLabel'>Courriel :</p>
                 <input className='inputBoxLog' type='text' value={email} onChange={handleChangeEmail}/>
             </div>
             <div>
-                <p className='logLabel'>Mot de passe:</p>
+                <p className='logLabel'>Mot de passe :</p>
                 <input className='inputBoxLog' type='password' value={password} onChange={handleChangePassword}/>
             </div>
             <div className='logBtnContainer'>
