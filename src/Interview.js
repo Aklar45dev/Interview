@@ -40,6 +40,7 @@ const Interview = () => {
     const recordWebcam = useRecordWebcam();
 
     const CreateFile = async () => {
+        $("#previous").css({'display':'inline'})
         $("#state").html('Preview')
         setPreview(false)
         $("#retake").css({'display':'inline'})
@@ -92,6 +93,7 @@ const Interview = () => {
 
     const startCamera = () => {
         recordWebcam.start()
+        $("#previous").css({'display':'none'})
         $("#play").css({'display':'none'})
         $("#recording").css({'display':'block'})
         $("#preview").css({'display':'none'})
@@ -105,6 +107,7 @@ const Interview = () => {
     const openCamera = () => {
         $("#state").html('Caméra')
         recordWebcam.open()
+        $("#previous").css({'display':'none'})
         $("#recording").css({'display':'block'})
         $("#preview").css({'display':'none'})
         $("#start").css({'display':'inline'})
@@ -118,6 +121,7 @@ const Interview = () => {
 
     const closeCamera = () => {
         recordWebcam.close()
+        $("#previous").css({'display':'none'})
         $("#recording").css({'display':'block'})
         $("#preview").css({'display':'none'})
         $("#start").css({'display':'none'})
@@ -130,6 +134,7 @@ const Interview = () => {
     }
 
     const retakeRecord = () => {
+        $("#previous").css({'display':'none'})
         $("#state").html('Caméra')
         recordWebcam.retake()
         stopPreview()
@@ -145,6 +150,7 @@ const Interview = () => {
 
     const endPlay = () => {
         setPreview(true)
+        $("#previous").css({'display':'inline'})
         $("#play").css({'display':'inline'})
         $("#currentAnswer").css({'display':'flex'})
         $("#video-wrapper").css({'display':'none'})
@@ -153,17 +159,22 @@ const Interview = () => {
         document.getElementById("currentAnswer").play()
     }
 
-    const nextQuestion = () => {
+    const nextQuestion = (num) => {
+        if(num === 0){
+            document.getElementById("mainVideo").play()
+
+        }
         closeCamera()
-        setInterviewId(interviewId+1)
+        setInterviewId(interviewId+num)
         $("#currentAnswer").css({'display':'none'})
+        $("#previous").css({'display':'none'})
         $("#question-selector").css({'display':'flex'})
         $("#video-wrapper").css({'display':'flex'})
         $("#recorder-container").css({'display':'none'})
         $("#load-spinner").css({'display':'none'})
         $("#recording").css({'display':'none'})
         $("#burger-container").css({'display':'flex'})
-        if(interviewVideos[interviewId+1] === undefined){
+        if(interviewVideos[interviewId+num] === undefined){
             $("#end-ui").css({'display':'flex'})
             $("#video-wrapper").css({'display':'none'})
             $("#question-selector").css({'display':'none'})
@@ -209,7 +220,7 @@ const Interview = () => {
                             }
                             fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/${email}`, requestOptions)
                             $("#next").css({'display':'inline'})
-                            nextQuestion()
+                            nextQuestion(1)
                         })
                 }
             )
@@ -230,6 +241,9 @@ const Interview = () => {
         }
     }
 
+    const arrow = '<'
+    const arrow2 = '>'
+
     return (
         <div className='no-scroll'>
             <div className='page-title-video'>Enregistrement</div>
@@ -242,13 +256,14 @@ const Interview = () => {
             <VideoPlayer id="mainVideo" src={interviewVideos[interviewId]} end={endPlay} title={`Question ${interviewId+1}`} />
             <div id="recorder-container">
                 <div className='btns-recording'>
+                    <button className='switch-btn' id="previous" onClick={() => nextQuestion(0)}>{arrow}</button>
                     <button className='record-btn' id="play" onClick={() => playPreview()}>Jouer</button>
                     <button className='record-btn' id="open" onClick={() => openCamera()}>Caméra</button>
                     <button className='record-btn' id="start" onClick={() => startCamera()}>Enregistrer</button>
                     <button className='record-btn' id="retake" onClick={() => retakeRecord()}>Reprendre</button>
                     <button className='record-btn' id="stop" onClick={() => CreateFile()}>Arrêter</button>
-                    <button className='record-btn' id="upload" onClick={() => handleUpload()}>Savegarder</button>
-                    <button className='record-btn' id="next" onClick={() => nextQuestion()}>Ok</button>
+                    <button className='record-btn' id="upload" onClick={() => handleUpload()}>Save</button>
+                    <button className='switch-btn' id="next" onClick={() => nextQuestion(1)}>{arrow2}</button>
                     <button id="rec" className="Rec button-rec">Recording</button>
                 </div>
                 <div id="state" className="state-label">Replay</div>

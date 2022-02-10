@@ -13,6 +13,8 @@ const Admin = () => {
 
     useEffect(() => {
         UpdateState()
+        $("#pop").css({'display':'none'})
+        $("#delete").css({'border': '2.5px solid rgb(255, 0, 0)', 'color': 'rgba(255, 0, 0, 1)'})
     },[])
 
     const updateUser = () => {
@@ -53,15 +55,10 @@ const Admin = () => {
         })
     }
             
-        
-        
-    
-
     const reload = () => {
         $("#question-selector").css({'display':'flex'})
         $("#replay-ui").css({'display':'none'})
         setInterviewId(0)
-        //window.location.reload(false)
     }
 
     const endPlay = () => {
@@ -88,9 +85,29 @@ const Admin = () => {
         }
     }
 
+    const ShowPopUp = (show) => {
+        $("#pop").css({'display':`${show === true ? 'grid' : 'none'}`})
+
+    }
+
+    const Delete = () => {
+        $("#pop").css({'display':'none'})
+        //fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/${}`, { method: 'DELETE' })
+        fetch("https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/nonte", { method: 'DELETE' })
+            //.then(() => window.location.reload(false))
+    }
+
     
     return (
         <div className='no-scroll'>
+            <div id="pop" className="popUp">
+                <div className="popUp-text">Supprimer l'entretien?</div>
+                <div className="popUp-btns">
+                    <button className='record-btn' onClick={() => Delete()}>Ok</button>
+                    <button className='record-btn' onClick={() => ShowPopUp(false)}>Annuler</button>
+                </div>
+            </div>
+            <div className='page-title-video'>Administrateur</div>
             <div className='page-title-video'>
                 <select className="dropMenu" onChange={() => updateUser()} name="users" id="users">
                     {users && users.map(user => <Option key={user.id} name={user.name} />)}
@@ -106,6 +123,9 @@ const Admin = () => {
             </div>
             <div id="player" className='video-container no-scroll'>
                 <VideoPlayer id="mainVideo" src={urls[interviewId]} end={endPlay} title={`Question ${Math.ceil(((interviewId+1)/2)-1)+1}`} />
+            </div>
+            <div className='btns-recording'>
+                <button className='record-btn' id="delete" onClick={() => ShowPopUp(true)}>Supprimer</button>
             </div>
         </div>
     )

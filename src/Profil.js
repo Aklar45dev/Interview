@@ -55,13 +55,13 @@ const Profil = () => {
     const setQuestionId = (num) => {
         console.log()
         if(interviewId+num >= 0){
-            if(num == -1){
+            if(num === -1){
                 setInterviewId(interviewId+num)
                 return
             }
         }
         if(interviewId+num <= urls.length-1){
-            if(num == 1){
+            if(num === 1){
                 setInterviewId(interviewId+num)
             }
             return
