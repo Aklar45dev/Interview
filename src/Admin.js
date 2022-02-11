@@ -8,6 +8,7 @@ const Admin = () => {
 
     const [users, setUsers] = useState([])
     const [urls, setUrls] = useState([])
+    const [user, setUser] = useState({ id: 'user' , name: "name", urls: 'urls' })
     const [interviewId, setInterviewId] = useState(0)
     const interviewVideos = videoUrls.interviewVideos
 
@@ -15,6 +16,7 @@ const Admin = () => {
         UpdateState()
         $("#pop").css({'display':'none'})
         $("#delete").css({'border': '2.5px solid rgb(255, 0, 0)', 'color': 'rgba(255, 0, 0, 1)'})
+        $("#ok").css({'border': '2.5px solid rgb(255, 0, 0)', 'color': 'rgba(255, 0, 0, 1)'})
     },[])
 
     const updateUser = () => {
@@ -28,6 +30,7 @@ const Admin = () => {
                     allUrls.push(user.urls[index])
                 });
                 setUrls(allUrls)
+                setUser(user)
             }
         })
     }
@@ -39,7 +42,6 @@ const Admin = () => {
         await fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews`)
             .then(response => response.json())
             .then(data => {
-                
                 data.Items.forEach(user => {
                     if(index === -1){
                     interviewVideos.forEach(loop => {
@@ -47,6 +49,7 @@ const Admin = () => {
                         allUrls.push(interviewVideos[index2])
                         allUrls.push(user.urls[index2])
                     })
+                    setUser(user)
                 }
                 index++
             })
@@ -70,7 +73,6 @@ const Admin = () => {
     }
 
     const setQuestionId = (num) => {
-        console.log()
         if(interviewId+num >= 0){
             if(num == -1){
                 setInterviewId(interviewId+num)
@@ -87,45 +89,48 @@ const Admin = () => {
 
     const ShowPopUp = (show) => {
         $("#pop").css({'display':`${show === true ? 'grid' : 'none'}`})
-
     }
 
     const Delete = () => {
         $("#pop").css({'display':'none'})
-        //fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/${}`, { method: 'DELETE' })
-        fetch("https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/nonte", { method: 'DELETE' })
-            //.then(() => window.location.reload(false))
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify({ id: user.id , name: user.name, urls: '' })
+        }
+        fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/${user.id}`, requestOptions )
+            .then(response => console.log(response.json))
+            .then(window.location.reload(false))
     }
 
     
     return (
         <div className='no-scroll'>
             <div id="pop" className="popUp">
-                <div className="popUp-text">Supprimer l'entretien?</div>
+                <div className="popUp-text">Supprimer l'entretien de {user.name}?</div>
                 <div className="popUp-btns">
-                    <button className='record-btn' onClick={() => Delete()}>Ok</button>
-                    <button className='record-btn' onClick={() => ShowPopUp(false)}>Annuler</button>
+                    <button id="ok" className='record-btn' onClick={() => Delete()}>Oui</button>
+                    <button className='record-btn' onClick={() => ShowPopUp(false)}>Non</button>
                 </div>
             </div>
             <div className='page-title-video'>Administrateur</div>
-            <div className='page-title-video'>
-                <select className="dropMenu" onChange={() => updateUser()} name="users" id="users">
-                    {users && users.map(user => <Option key={user.id} name={user.name} />)}
-                </select>
-            </div>
             <div id="question-selector" className="video-selector">
                 <button className="select-btn" onClick={() => setQuestionId(-1)}>-</button>
                 <p className='question-id'>{`${interviewId% 2 === 0 ? "Question" : "Réponse"} ${Math.ceil(((interviewId+1)/2)-1)+1}`}</p>
                 <button className="select-btn" onClick={() => setQuestionId(1)}>+</button>
             </div>
+            <div className='page-title-video'>
+                <select className="dropMenu" onChange={() => updateUser()} name="users" id="users">
+                    {users && users.map(user => <Option key={user.id} name={user.name} />)}
+                </select>
+            </div>
+            <div className='btns-recording'>
+                <button className='record-btn' id="delete" onClick={() => ShowPopUp(true)}>Supprimer l'entretien</button>
+            </div>
             <div className='replay-container' id="replay-ui">
-                <button className='startBtn' onClick={() => reload()}>Retour</button>
+                <button className='startBtn' onClick={() => reload()}>Revoir</button>
             </div>
             <div id="player" className='video-container no-scroll'>
                 <VideoPlayer id="mainVideo" src={urls[interviewId]} end={endPlay} title={`Question ${Math.ceil(((interviewId+1)/2)-1)+1}`} />
-            </div>
-            <div className='btns-recording'>
-                <button className='record-btn' id="delete" onClick={() => ShowPopUp(true)}>Supprimer</button>
             </div>
         </div>
     )

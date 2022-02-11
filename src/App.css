@@ -16,10 +16,6 @@ time, mark, audio, video {
 	border: 0;
 }
 
-html{
-  font-family: 'Roboto', sans-serif;
-}
-
 .custom-select {
   position: relative;
   font-family: Arial;
@@ -62,6 +58,7 @@ html{
   user-select: none;
 }
 
+
 /*style items (options):*/
 .select-items {
   position: absolute;
@@ -97,7 +94,7 @@ html{
   border-radius: 0.5em;
   font-weight: 500;
   width: auto;
-
+  min-width: 200px;
 }
 
 .upload-spinner{
@@ -126,7 +123,9 @@ html{
 .popUp-text{
   color: white;
   font-size: 1.5em;
-  margin-bottom: 1em
+  margin: 1em;
+  margin-top: 0em;
+  text-align: center;
 }
 
 .popUp-btns{
@@ -168,13 +167,10 @@ html{
   background-color:rgba(0, 119, 255, 0);
   border-radius: 0.5em;
   opacity: 1;
-  font-size: 1.0em;
-  padding: 0.5em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  font-size: 1.5em;
   cursor: pointer;
   filter: brightness(1);
-  font-weight: 700;
+  font-weight: 500;
   margin: 0.25em;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
@@ -191,13 +187,22 @@ html{
  }
 
  .page-title-video{
+   margin-top: 0.25em;
    display: flex;
    color: white;
-   font-weight: 500;
+   font-weight: 700;
    justify-content: center;
-   margin-top: 0.5em;
-   font-size: 1.2em;
+   font-size: 2em;
  }
+
+ .page-selecter-video{
+  display: flex;
+  color: white;
+  font-weight: 500;
+  justify-content: center;
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
 
  .record-video-canvas{
    width:50%;
@@ -760,8 +765,10 @@ progress::-webkit-progress-value {
   grid-template-rows: 50vh;
   align-items: center;
   justify-items: center;
-  margin-top: 4em;
+  padding-top: 4em;
   margin-bottom: 4em;
+  border-top-left-radius: 0px 0px;
+  border-top-right-radius: 0px 0px;
 }
 
 .logLabel{
@@ -772,10 +779,13 @@ progress::-webkit-progress-value {
 
 .state-label{
   font-size: 1.5em;
-  color:rgb(165, 165, 165);
-  margin-left: 25%;
-  margin-bottom: 0.25em;
-  margin-top: 0em;
+  color:rgb(255, 255, 255);
+  margin-left: 25.5%;
+  margin-right: 0.5em;
+  margin-bottom: 0.5em;
+  font-weight: 500;
+  text-shadow: 1px 1px 4px #414141;
+  position: absolute;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -838,7 +848,7 @@ a {
   justify-content: center;
   width: 100%;
   align-items: center;
-  height: 800px;
+  height: auto;
 }
 
 .main-control-container{
@@ -852,8 +862,8 @@ a {
 .controls-bar {
   align-items: center;
   display: flex;
-  padding-right: 10em;
-  padding-left: 10em;
+  padding-right: 15em;
+  padding-left: 15em;
   
 }
 
@@ -909,6 +919,7 @@ a {
   display: flex;
   align-items: center !important;
   justify-content: center;
+  margin-bottom: 0.25em;
 
 }
 
@@ -983,7 +994,7 @@ a {
 
 .homeVideo{
   width: 100%;
-  filter: brightness(0.5);
+  filter: brightness(0.3);
 }
 
 .test-validate-btn{
@@ -1199,6 +1210,13 @@ a {
   outline: none;
   cursor: pointer;
   opacity: 1;
+}
+
+.connection{
+  font-size: 3em;
+  color: rgb(255, 255, 255);
+  padding-bottom: 0.25em;
+  font-weight: 700
 }
 
 .addBtn:hover{
@@ -1694,8 +1712,8 @@ label{
 .text-title-main{
   color: white;
   font-size: 4em;
-  font-weight: 500;
-  padding-bottom: 1em;
+  font-weight: 700;
+  padding-bottom: 0.5em
 }
 
 .startBtn{
@@ -1705,6 +1723,7 @@ label{
   color: rgba(255, 255, 255, 1);
   background-color:rgba(0, 119, 255, 0);
   margin: 5em;
+  margin-top: 3em;
   padding: 1.5em;
   border-radius: 2em;
   opacity: 1;
@@ -1787,13 +1806,6 @@ label{
   margin-bottom: 0.35em;
 }
 
-.connection{
-  font-size: 2.5em;
-  color: rgb(255, 255, 255);
-  padding-bottom: 0.25em;
-  font-weight:500
-}
-
 .warning{
   display: none;
   font-size: 1.5em;
@@ -1862,6 +1874,13 @@ label{
     align-items: flex-start;
   }
 
+  .connection{
+    font-size: 2em;
+    color: rgb(255, 255, 255);
+    padding-bottom: 0.25em;
+    font-weight: 700
+  }
+
   .sectionWrapper{
     background-color: #242424 !important;
     padding: 1em;
@@ -1902,11 +1921,10 @@ label{
   }
 
   .state-label{
-    font-size: 1.5em;
-    color:rgb(165, 165, 165);
+    font-size: 1.25em;
     margin: 0.25em;
     margin-top: 0em;
-
+    margin-bottom: 0.5em;
   }
 
   .progressRow{
@@ -1989,7 +2007,8 @@ label{
     color: rgba(255, 255, 255, 1);
     background-color:rgba(0, 119, 255, 0);
     margin: 0em;
-    padding: 1.6em;
+    margin-top: 1em;
+    padding: 1.3em;
     border-radius: 2em;
     opacity: 1;
     font-size: 1em;
@@ -2008,6 +2027,15 @@ label{
     width: 100%;
     height: auto;
     justify-items: center;
+  }
+
+  .page-title-video{
+    margin-top: 0.25em;
+    display: flex;
+    color: white;
+    font-weight: 700;
+    justify-content: center;
+    font-size: 1.2em;
   }
 
   .modules-page-grid .thumbnail{
@@ -2143,6 +2171,8 @@ label{
     align-items: center;
     justify-items: center;
     margin-top: 0;
+    border-top-left-radius: 0px 0px;
+    border-top-right-radius: 0px 0px;
   }
 
   .question-title{
@@ -2200,8 +2230,8 @@ label{
 .text-title-main{
   color: white;
   font-size: 2em;
-  font-weight: 500;
-  padding-bottom: 1em;
+  font-weight: 700;
+  padding-bottom: 0.5em;
 }
 
 .dropMenu{
@@ -2209,7 +2239,8 @@ label{
   border-radius: 0.5em;
   font-weight: 500;
   width: auto;
-  min-width: 50%;
+  min-width: 46.5%;
+  margin-bottom: 0em;
 }
 
 .popUp{
@@ -2219,7 +2250,7 @@ label{
   height: 20%;
   z-index: 1000;
   margin-left: 10%;
-  margin-top: 35%;
+  margin-top: 10%;
   border-radius: 1em;
   display: grid;
   justify-content: center;

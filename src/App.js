@@ -106,7 +106,8 @@ const App = () => {
       </Switch> : 
       <Switch>
         <Route path='/recording' component={Interview} />
-        <Route path='/dashboard' component={Admin} />
+        {email === 'admin@gmail.com' ? 
+        <Route path='/dashboard' component={Admin} /> : <Route path='/' component={Home} />}
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />
         <Route path='/interview' component={Profile} />

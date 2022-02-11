@@ -9,8 +9,9 @@
  button:focus {outline:0;}
 
  .hamburger {
+    transform: scale(0.7);
     width: 100%;
-    padding: 1.5em;
+    padding: 1.2em;
     cursor: pointer;
     transition-property: opacity, filter;
     transition-duration: 0.15s;

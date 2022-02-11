@@ -6,6 +6,7 @@ const Home = () => {
 
     $(() => {
         let video = document.getElementById('homeVid')
+        $("#homeVid").fadeOut(0).fadeIn(1000)
         if(video !== null){
             video.currentTime = 8
         }

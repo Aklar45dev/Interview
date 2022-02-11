@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import $ from 'jquery'
 import firebase from './firebase'
 
 const Login = () => {

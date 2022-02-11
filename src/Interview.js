@@ -26,7 +26,6 @@ const Interview = () => {
         $("#upload").css({'display':'none'})
         $("#retake").css({'display':'none'})
         $("#end-ui").css({'display':'none'})
-        $("#load-spinner").css({'display':'none'})
         $("#rec").css({'display':'none'})
         $("#recording").css({'display':'none'})
         $("#currentAnswer").css({'display':'none'})
@@ -93,6 +92,7 @@ const Interview = () => {
 
     const startCamera = () => {
         recordWebcam.start()
+        $("#state").html('Enregistre')
         $("#previous").css({'display':'none'})
         $("#play").css({'display':'none'})
         $("#recording").css({'display':'block'})
@@ -149,29 +149,36 @@ const Interview = () => {
     }
 
     const endPlay = () => {
-        setPreview(true)
-        $("#previous").css({'display':'inline'})
-        $("#play").css({'display':'inline'})
-        $("#currentAnswer").css({'display':'flex'})
-        $("#video-wrapper").css({'display':'none'})
-        $("#recorder-container").css({'display':'block'})
-        $("#question-selector").css({'display':'none'})
-        document.getElementById("currentAnswer").play()
+        if(urls[interviewId] !== undefined){
+            setPreview(true)
+            $("#previous").css({'display':'inline'})
+            $("#play").css({'display':'inline'})
+            $("#currentAnswer").css({'display':'flex'})
+            $("#video-wrapper").css({'display':'none'})
+            $("#recorder-container").css({'display':'block'})
+            $("#question-selector").css({'display':'none'})
+            document.getElementById("currentAnswer").play()
+        }
+        if(urls[interviewId] === undefined){
+            $("#video-wrapper").css({'display':'none'})
+            $("#question-selector").css({'display':'none'})
+            $("#recorder-container").css({'display':'block'})
+            openCamera()
+        }
     }
 
     const nextQuestion = (num) => {
         if(num === 0){
             document.getElementById("mainVideo").play()
-
         }
         closeCamera()
         setInterviewId(interviewId+num)
+        document.getElementById("currentAnswer").pause()
         $("#currentAnswer").css({'display':'none'})
         $("#previous").css({'display':'none'})
         $("#question-selector").css({'display':'flex'})
         $("#video-wrapper").css({'display':'flex'})
         $("#recorder-container").css({'display':'none'})
-        $("#load-spinner").css({'display':'none'})
         $("#recording").css({'display':'none'})
         $("#burger-container").css({'display':'flex'})
         if(interviewVideos[interviewId+num] === undefined){
@@ -182,13 +189,15 @@ const Interview = () => {
     }
 
     const handleUpload = () => {
-            $("#load-spinner").css({'display':'block'})
+            $("#state").html('Chargement...')
             $("#retake").css({'display':'none'})
             $("#play").css({'display':'none'})
             $("#next").css({'display':'none'})
             $("#upload").css({'display':'none'})
             $("#preview").css({'display':'none'})
             $("#currentAnswer").css({'display':'none'})
+            $("#previous").css({'display':'none'})
+            document.getElementById("currentAnswer").pause()
             const uploadTask = storage.ref(`uploads/${file.name}`).put(file)
             uploadTask.on(
                 "state_changed",
@@ -228,21 +237,18 @@ const Interview = () => {
 
     const setQuestionId = (num) => {
         if(interviewId+num >= 0){
-            if(num == -1){
+            if(num === -1){
                 setInterviewId(interviewId+num)
                 return
             }
         }
         if(interviewId+num <= interviewVideos.length-1){
-            if(num == 1){
+            if(num === 1){
                 setInterviewId(interviewId+num)
                 return
             }
         }
     }
-
-    const arrow = '<'
-    const arrow2 = '>'
 
     return (
         <div className='no-scroll'>
@@ -252,18 +258,17 @@ const Interview = () => {
                 <p className='question-id'>{`Question ${interviewId+1}`}</p>
                 <button className="select-btn" onClick={() => setQuestionId(1)}>+</button>
             </div>
-            <div className='upload-spinner' id='load-spinner'>chargement...</div>
             <VideoPlayer id="mainVideo" src={interviewVideos[interviewId]} end={endPlay} title={`Question ${interviewId+1}`} />
             <div id="recorder-container">
                 <div className='btns-recording'>
-                    <button className='switch-btn' id="previous" onClick={() => nextQuestion(0)}>{arrow}</button>
+                    <button className='switch-btn' id="previous" onClick={() => nextQuestion(0)}>-</button>
                     <button className='record-btn' id="play" onClick={() => playPreview()}>Jouer</button>
                     <button className='record-btn' id="open" onClick={() => openCamera()}>Caméra</button>
                     <button className='record-btn' id="start" onClick={() => startCamera()}>Enregistrer</button>
+                    <button className='record-btn' id="upload" onClick={() => handleUpload()}>Save</button>
                     <button className='record-btn' id="retake" onClick={() => retakeRecord()}>Reprendre</button>
                     <button className='record-btn' id="stop" onClick={() => CreateFile()}>Arrêter</button>
-                    <button className='record-btn' id="upload" onClick={() => handleUpload()}>Save</button>
-                    <button className='switch-btn' id="next" onClick={() => nextQuestion(1)}>{arrow2}</button>
+                    <button className='switch-btn' id="next" onClick={() => nextQuestion(1)}>+</button>
                     <button id="rec" className="Rec button-rec">Recording</button>
                 </div>
                 <div id="state" className="state-label">Replay</div>
