@@ -165,6 +165,7 @@ const Interview = () => {
             $("#recorder-container").css({'display':'block'})
             openCamera()
         }
+        $("#state").html('Replay')
     }
 
     const nextQuestion = (num) => {

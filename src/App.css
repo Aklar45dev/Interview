@@ -780,11 +780,10 @@ progress::-webkit-progress-value {
 .state-label{
   font-size: 1.5em;
   color:rgb(255, 255, 255);
-  margin-left: 25.5%;
-  margin-right: 0.5em;
-  margin-bottom: 0.5em;
+  margin-left: 26%;
+  margin-top: 0.25em;
   font-weight: 500;
-  text-shadow: 1px 1px 4px #414141;
+  text-shadow: 1px 1px 4px #505050;
   position: absolute;
 }
 
@@ -1923,8 +1922,7 @@ label{
   .state-label{
     font-size: 1.25em;
     margin: 0.25em;
-    margin-top: 0em;
-    margin-bottom: 0.5em;
+    margin-left: 0.5em;
   }
 
   .progressRow{
