@@ -938,6 +938,16 @@ a {
   justify-content: left;
 }
 
+.script-response {
+  color: white;
+  display: flex;
+  justify-content: center;
+  font-size: 1em;
+  margin: 0.5em;
+  margin-bottom: 0em;
+  justify-content: center;
+}
+
 .video-selector{
   display: flex;
   align-items: center !important;

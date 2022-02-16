@@ -163,6 +163,7 @@ const Interview = () => {
             $("#recorder-container").css({'display':'block'})
             $("#question-selector").css({'display':'none'})
             document.getElementById("currentAnswer").play()
+            $("#state").html('Replay')
         }
         if(urls[interviewId] === undefined){
             $("#video-wrapper").css({'display':'none'})
@@ -170,7 +171,6 @@ const Interview = () => {
             $("#recorder-container").css({'display':'block'})
             openCamera()
         }
-        $("#state").html('Replay')
     }
 
     const nextQuestion = (num) => {
@@ -284,7 +284,7 @@ const Interview = () => {
             </div>
             <VideoPlayer id="mainVideo" src={interviewVideos[interviewId]} end={endPlay} title={`Question ${interviewId+1}`} />
             <div id="recorder-container">
-                <div className="script">{`Réponse ${interviewId+1}`}</div>
+                <div className="script-response">{`Réponse ${interviewId+1}`}</div>
                 <div className='btns-recording'>
                     <button className='switch-btn' id="previous" onClick={() => nextQuestion(0)}>-</button>
                     <button className='record-btn' id="play" onClick={() => playPreview()}>Jouer</button>
