@@ -1,33 +1,41 @@
 import React from 'react';
 import useSpeechToText from 'react-hook-speech-to-text';
 
-export default function AnyComponent() {
-  const {
-    error,
-    interimResult,
-    isRecording,
-    results,
-    startSpeechToText,
-    stopSpeechToText,
-  } = useSpeechToText({
-    continuous: true,
-    useLegacyResults: false
-  });
+const Speech = () => {
 
-  if (error) return <p>Web Speech API is not available in this browser 🤷‍</p>;
+    const {
+        error,
+        interimResult,
+        isRecording,
+        results,
+        startSpeechToText,
+        stopSpeechToText,
+    } = useSpeechToText({
+        speechRecognitionProperties: {
+            lang: 'fr-CA',
+            interimResults: true
+          },
+        continuous: true,
+        useLegacyResults: false
+    })
 
-  return (
-    <div>
-      <h1 className="question-id" >Recording: {isRecording.toString()}</h1>
-      <button className='startBtn' onClick={isRecording ? stopSpeechToText : startSpeechToText}>
-        {isRecording ? 'Stop Recording' : 'Start Recording'}
-      </button>
-      <ul>
-        {results.map((result) => (
-          <li className="question-id" key={result.timestamp}>{result.transcript}</li>
-        ))}
-        {interimResult && <li>{interimResult}</li>}
-      </ul>
-    </div>
-  );
+    console.log(results)
+
+    if (error) return <p className="question-id">Web Speech API is not available in this browser 🤷‍</p>
+
+    return (
+        <div>
+            <button className='startBtn' onClick={isRecording ? stopSpeechToText : startSpeechToText}>
+                {isRecording ? 'Stop Recording' : 'Start Recording'}
+            </button>
+            <ul>
+                {results.map((result) => (
+                <li className="question-id" key={result.timestamp}>{result.transcript}</li>
+                ))}
+                {interimResult && <li className="question-id">{interimResult}</li>}
+            </ul>
+        </div>
+    )
 }
+
+export default Speech

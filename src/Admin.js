@@ -8,6 +8,7 @@ const Admin = () => {
 
     const [users, setUsers] = useState([])
     const [urls, setUrls] = useState([])
+    const [scripts, setScripts] = useState([])
     const [user, setUser] = useState({ id: 'user' , name: "name", urls: 'urls' })
     const [interviewId, setInterviewId] = useState(0)
     const interviewVideos = videoUrls.interviewVideos
@@ -24,12 +25,15 @@ const Admin = () => {
             if(user.name === $("#users :selected").text()){
                 let index = -1
                 let allUrls = []
+                let allScripts = []
                 interviewVideos.forEach(loop => {
                     index++
                     allUrls.push(interviewVideos[index])
                     allUrls.push(user.urls[index])
+                    allScripts.push(user.script[index])
                 });
                 setUrls(allUrls)
+                setScripts(allScripts)
                 setUser(user)
             }
         })
@@ -39,6 +43,7 @@ const Admin = () => {
         let index = -1
         let index2 = -1
         let allUrls = []
+        let allScripts = []
         await fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews`)
             .then(response => response.json())
             .then(data => {
@@ -48,12 +53,14 @@ const Admin = () => {
                         index2++
                         allUrls.push(interviewVideos[index2])
                         allUrls.push(user.urls[index2])
+                        allScripts.push(user.script[index2])
                     })
                     setUser(user)
                 }
                 index++
             })
             setUrls(allUrls)
+            setScripts(allScripts)
             setUsers(data.Items)
         })
     }
@@ -65,6 +72,7 @@ const Admin = () => {
     }
 
     const endPlay = () => {
+        if (interviewId% 2 === 0) console.log(scripts[Math.ceil(((interviewId+1)/2)-1)])
         setInterviewId(interviewId+1)
         if(urls[interviewId+1] === undefined){
             $("#replay-ui").css({'display':'flex'})
@@ -95,7 +103,7 @@ const Admin = () => {
         $("#pop").css({'display':'none'})
         const requestOptions = {
             method: 'POST',
-            body: JSON.stringify({ id: user.id , name: user.name, urls: '' })
+            body: JSON.stringify({ id: user.id , name: user.name, urls: [], script: [] })
         }
         fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/${user.id}`, requestOptions )
             .then(response => console.log(response.json))
@@ -129,9 +137,14 @@ const Admin = () => {
             <div className='replay-container' id="replay-ui">
                 <button className='startBtn' onClick={() => reload()}>Revoir</button>
             </div>
-            <div id="player" className='video-container no-scroll'>
+            <div id="player" className='video-container'>
                 <VideoPlayer id="mainVideo" src={urls[interviewId]} end={endPlay} title={`Question ${Math.ceil(((interviewId+1)/2)-1)+1}`} />
             </div>
+            {interviewId% 2 === 0 ? <div/> : 
+            <div className="script-container">
+                <div className="script-title">Transcription : </div>
+                <div className="script">{scripts[Math.ceil(((interviewId+1)/2)-1)]}</div>
+            </div>}
         </div>
     )
 }

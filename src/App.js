@@ -11,7 +11,6 @@ import Admin from './Admin'
 import $ from 'jquery'
 import {Route, BrowserRouter as Router, Switch, Link} from 'react-router-dom'
 import firebase from './firebase'
-import Speech from './Speech'
 
 const App = () => {
 
@@ -83,10 +82,6 @@ const App = () => {
               <Link className="menu-text" to="/">Accueil</Link>
             </div>
             <div className='item-row' onClick={() => toggleMenu()}>
-              <img alt="img" src='../images/home.png' />
-              <Link className="menu-text" to="/speech">Speech</Link>
-            </div>
-            <div className='item-row' onClick={() => toggleMenu()}>
               <img alt="img" src='../images/profil.png' />
               <Link className="menu-text" to={{
                 pathname: "/interview",
@@ -114,7 +109,6 @@ const App = () => {
         {email === 'admin@gmail.com' ? 
         <Route path='/dashboard' component={Admin} /> : <Route path='/' component={Home} />}
         <Route path='/login' component={Login} />
-        <Route path='/speech' component={Speech} />
         <Route path='/register' component={Register} />
         <Route path='/interview' component={Profile} />
         <Route path='/' component={Home} />

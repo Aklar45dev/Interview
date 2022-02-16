@@ -5,12 +5,14 @@ import { useRecordWebcam } from 'react-record-webcam'
 import firebase from './firebase'
 import videoUrls from './videoUrls'
 import VideoPlayer from './components/VideoPlayer'
+import useSpeechToText from 'react-hook-speech-to-text'
 
 const Interview = () => {
 
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
     const [urls, setUrls] = useState([])
+    const [scripts, setScripts] = useState([])
     const [interviewId, setInterviewId] = useState(0)
     const [file, setFile] = useState(null)
     const [preview, setPreview] = useState(true)
@@ -36,9 +38,10 @@ const Interview = () => {
         $("#upload").css({'border': '2.5px solid rgb(23, 169, 255)', 'color': 'rgba(23, 169, 255, 1)'})
     },[])
 
-    const recordWebcam = useRecordWebcam();
+    const recordWebcam = useRecordWebcam()
 
     const CreateFile = async () => {
+        stopSpeechToText()
         $("#previous").css({'display':'inline'})
         $("#state").html('Preview')
         setPreview(false)
@@ -71,6 +74,7 @@ const Interview = () => {
                 .then(data => {
                 setName(data.name)
                 setUrls(data.urls)
+                setScripts(data.script)
                 })
             }
         })
@@ -91,6 +95,7 @@ const Interview = () => {
     }
 
     const startCamera = () => {
+        startSpeechToText()
         recordWebcam.start()
         $("#state").html('Enregistre')
         $("#previous").css({'display':'none'})
@@ -217,6 +222,8 @@ const Interview = () => {
                         .getDownloadURL()
                         .then(url => {
                             let newUrls = urls
+                            let newScripts = scripts
+                            newScripts[interviewId] = results[(results.length)-1].transcript
                             if (newUrls !== undefined){
                                 newUrls[interviewId] = url
                             }
@@ -226,7 +233,7 @@ const Interview = () => {
                             //POST    
                             const requestOptions = {
                                 method: 'POST',
-                                body: JSON.stringify({ id: email, name: name, urls: newUrls })
+                                body: JSON.stringify({ id: email, name: name, urls: newUrls, script: newScripts })
                             }
                             fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/${email}`, requestOptions)
                             $("#next").css({'display':'inline'})
@@ -251,6 +258,22 @@ const Interview = () => {
         }
     }
 
+    const {
+        error,
+        interimResult,
+        isRecording,
+        results,
+        startSpeechToText,
+        stopSpeechToText,
+    } = useSpeechToText({
+        speechRecognitionProperties: {
+            lang: 'fr-CA',
+            interimResults: true
+          },
+        continuous: true,
+        useLegacyResults: false
+    })
+
     return (
         <div className='no-scroll'>
             <div className='page-title-video'>Enregistrement</div>
@@ -261,6 +284,7 @@ const Interview = () => {
             </div>
             <VideoPlayer id="mainVideo" src={interviewVideos[interviewId]} end={endPlay} title={`Question ${interviewId+1}`} />
             <div id="recorder-container">
+                <div className="script">{`Réponse ${interviewId+1}`}</div>
                 <div className='btns-recording'>
                     <button className='switch-btn' id="previous" onClick={() => nextQuestion(0)}>-</button>
                     <button className='record-btn' id="play" onClick={() => playPreview()}>Jouer</button>
@@ -278,7 +302,6 @@ const Interview = () => {
                 <video id="currentAnswer" className="record-video-canvas" src={urls[interviewId]} />
             </div>
             <div className='replay-container' id="end-ui">
-                <div>ok</div>
                 <a className='startBtn' href='./interview'>Voir replay</a>
             </div>
         </div>
