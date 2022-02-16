@@ -72,7 +72,6 @@ const Admin = () => {
     }
 
     const endPlay = () => {
-        if (interviewId% 2 === 0) console.log(scripts[Math.ceil(((interviewId+1)/2)-1)])
         setInterviewId(interviewId+1)
         if(urls[interviewId+1] === undefined){
             $("#replay-ui").css({'display':'flex'})
