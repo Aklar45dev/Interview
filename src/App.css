@@ -2070,6 +2070,10 @@ label{
     font-size: 1.2em;
   }
 
+  .bold{
+    font-weight: 700;
+  }
+
   .modules-page-grid .thumbnail{
     background-color: rgba(0, 0, 0, 0);
     margin: 0em;

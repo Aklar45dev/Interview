@@ -3,12 +3,14 @@ import $ from 'jquery'
 import videoUrls from './videoUrls'
 import VideoPlayer from './components/VideoPlayer'
 import Option from './Option'
+import _ from 'lodash'  
 
 const Admin = () => {
 
     const [users, setUsers] = useState([])
     const [urls, setUrls] = useState([])
     const [scripts, setScripts] = useState([])
+    const [occurence, setOccurence] = useState([])
     const [user, setUser] = useState({ id: 'user' , name: "name", urls: 'urls' })
     const [interviewId, setInterviewId] = useState(0)
     const interviewVideos = videoUrls.interviewVideos
@@ -72,6 +74,7 @@ const Admin = () => {
     }
 
     const endPlay = () => {
+        filterText(scripts[Math.ceil(((interviewId+1)/2)-1)])
         setInterviewId(interviewId+1)
         if(urls[interviewId+1] === undefined){
             $("#replay-ui").css({'display':'flex'})
@@ -82,12 +85,14 @@ const Admin = () => {
     const setQuestionId = (num) => {
         if(interviewId+num >= 0){
             if(num == -1){
+                filterText(scripts[Math.ceil(((interviewId+1)/2)-2)])
                 setInterviewId(interviewId+num)
                 return
             }
         }
         if(interviewId+num <= urls.length-1){
             if(num == 1){
+                filterText(scripts[Math.ceil(((interviewId+1)/2)-1)])
                 setInterviewId(interviewId+num)
             }
             return
@@ -108,6 +113,42 @@ const Admin = () => {
             .then(response => console.log(response.json))
             .then(window.location.reload(false))
     }
+
+    const filterText = text => {
+
+        if (text !== undefined){
+            const myArray = text.split(" ")
+            const dict = {}
+            const noComaArray = []
+            const objArr = []
+            myArray.forEach(el => {
+                let arr = el.split(`'`)
+                noComaArray.push(arr[arr.length-1])
+            })
+            noComaArray.forEach(e => {
+                let value = dict[e] === undefined ? 0 : dict[e]
+                dict[e] = value+1
+            })
+        
+            let unsorted = dict,
+            sorted = _(unsorted)
+                .toPairs()
+                .orderBy(1, 'desc')
+                .fromPairs()
+                .value()
+            
+            for (const [key, value] of Object.entries(sorted)) {
+                if(isNaN(parseInt(key))){
+                    objArr.push({key: key, num: value})
+                }
+            }
+            
+            setOccurence(objArr)
+
+        }
+
+    }
+
 
     
     return (
@@ -143,6 +184,8 @@ const Admin = () => {
             <div className="script-container">
                 <div className="script-title">Transcription : </div>
                 <div className="script">{scripts[Math.ceil(((interviewId+1)/2)-1)]}</div>
+                <div className="script-title">Fréquence : </div>
+                {occurence && occurence.map(occur => <li className="script" key={occur.key}><span className="bold">{occur.key}</span>: {occur.num}</li>)}
             </div>}
         </div>
     )
