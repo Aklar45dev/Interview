@@ -84,14 +84,14 @@ const Admin = () => {
 
     const setQuestionId = (num) => {
         if(interviewId+num >= 0){
-            if(num == -1){
+            if(num === -1){
                 filterText(scripts[Math.ceil(((interviewId+1)/2)-2)])
                 setInterviewId(interviewId+num)
                 return
             }
         }
         if(interviewId+num <= urls.length-1){
-            if(num == 1){
+            if(num === 1){
                 filterText(scripts[Math.ceil(((interviewId+1)/2)-1)])
                 setInterviewId(interviewId+num)
             }
@@ -183,9 +183,9 @@ const Admin = () => {
             {interviewId% 2 === 0 ? <div/> : 
             <div className="script-container">
                 <div className="script-title">Transcription : </div>
-                <div className="script">{scripts[Math.ceil(((interviewId+1)/2)-1)]}</div>
+                <div className="script-text">{scripts[Math.ceil(((interviewId+1)/2)-1)]}</div>
                 <div className="script-title">Fréquence : </div>
-                {occurence && occurence.map(occur => <li className="script" key={occur.key}><span className="bold">{occur.key}</span>: {occur.num}</li>)}
+                {occurence && occurence.map(occur => <li className="script-text" key={occur.key}><span className="bold">{occur.key}</span>{`: ${occur.num}`}</li>)}
             </div>}
         </div>
     )

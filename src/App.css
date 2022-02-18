@@ -21,6 +21,10 @@ time, mark, audio, video {
   font-family: Arial;
 }
 
+.bold{
+  font-weight: 700;
+}
+
 
 .custom-select select {
   display: none; /*hide original SELECT element:*/
@@ -916,16 +920,17 @@ a {
 
 .script-container{
   margin-top: 2em;
+  margin-bottom: 5em;
 }
 
 .script-title {
   color: white;
   display: flex;
   justify-content: center;
-  font-size: 1.25em;
+  font-size: 1.5em;
   margin: 0.5em;
   margin-bottom: 0em;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .script {
@@ -936,6 +941,18 @@ a {
   margin: 0.5em;
   margin-bottom: 0em;
   justify-content: left;
+}
+
+.script-text {
+  color: white;
+  display: flex;
+  justify-content: center;
+  font-size: 1em;
+  margin: 0.5em;
+  margin-bottom: 0em;
+  justify-content: left;
+  margin-left: 35%;
+  margin-right: 35%;
 }
 
 .script-response {
@@ -2070,10 +2087,6 @@ label{
     font-size: 1.2em;
   }
 
-  .bold{
-    font-weight: 700;
-  }
-
   .modules-page-grid .thumbnail{
     background-color: rgba(0, 0, 0, 0);
     margin: 0em;
@@ -2292,6 +2305,18 @@ label{
   justify-content: center;
   align-content: center;
   border: 2.5px solid rgb(50, 50, 50);
+}
+
+.script-text {
+  color: white;
+  display: flex;
+  justify-content: center;
+  font-size: 1em;
+  margin: 0.5em;
+  margin-bottom: 0em;
+  justify-content: left;
+  margin-left: 3%;
+  margin-right: 3%;
 }
 
 }
