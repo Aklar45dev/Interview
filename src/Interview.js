@@ -41,7 +41,6 @@ const Interview = () => {
     const recordWebcam = useRecordWebcam()
 
     const CreateFile = async () => {
-        stopSpeechToText()
         $("#previous").css({'display':'inline'})
         $("#state").html('Preview')
         setPreview(false)
@@ -62,6 +61,7 @@ const Interview = () => {
         setFile(myFile)
         $("#recording").css({'display':'none'})
         $("#preview").css({'display':'block'})
+        stopSpeechToText()
     }
 
     const UpdateState = () => {
