@@ -61,7 +61,7 @@ const Interview = () => {
         setFile(myFile)
         $("#recording").css({'display':'none'})
         $("#preview").css({'display':'block'})
-        stopSpeechToText()
+        if (!!window.chrome) stopSpeechToText()
     }
 
     const UpdateState = () => {

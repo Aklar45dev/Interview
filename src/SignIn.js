@@ -23,7 +23,7 @@ const SignIn = () => {
     const sendProfil = () => {
         const requestOptions = {
             method: 'POST',
-            body: JSON.stringify({ id: email, name: name, urls: [] })
+            body: JSON.stringify({ id: email, name: name, urls: [], script: [] })
         }
         fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/${email}`, requestOptions)
         .then(() => {
