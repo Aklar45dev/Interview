@@ -33,23 +33,30 @@ const Login = () => {
         setPassword(e.target.value)
     }
 
+    const text = window.navigator.userAgent
+    const isFirefox = text.includes("Firefox")
+
     return (
-        <div className='loginGrid'>
-            <h1 className='text-title-main'>Simulation d'entretien</h1>
-            <hr></hr>
-            <h1 className='connection'>Connexion</h1>
-            <div>
-                <p className='logLabel'>Courriel:</p>
-                <input className='inputBoxLog' type='text' value={email} onChange={handleChangeEmail}/>
-            </div>
-            <div>
-                <p className='logLabel'>Mot de passe:</p>
-                <input className='inputBoxLog' type='password' value={password} onChange={handleChangePassword}/>
-            </div>
-            <div className='logBtnContainer'>
-                <button onClick={() => login()} className='logBtn'>Se connecter</button>
-                <button onClick={() => signin()} className='logBtn2'>S'inscrire</button>
-            </div>
+        <div>
+            {isFirefox ? <div className="text-title-warning">Veuillez utiliser le navigateur Chrome</div> : 
+            <div className='loginGrid'>
+                
+                <h1 className='text-title-main'>Simulation d'entretien</h1>
+                <hr></hr>
+                <h1 className='connection'>Connexion</h1>
+                <div>
+                    <p className='logLabel'>Courriel:</p>
+                    <input className='inputBoxLog' type='text' value={email} onChange={handleChangeEmail}/>
+                </div>
+                <div>
+                    <p className='logLabel'>Mot de passe:</p>
+                    <input className='inputBoxLog' type='password' value={password} onChange={handleChangePassword}/>
+                </div>
+                <div className='logBtnContainer'>
+                    <button onClick={() => login()} className='logBtn'>Se connecter</button>
+                    <button onClick={() => signin()} className='logBtn2'>S'inscrire</button>
+                </div>
+            </div>}
         </div>
     )
 }

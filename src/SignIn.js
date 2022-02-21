@@ -4,10 +4,12 @@ import firebase from './firebase'
 
 const SignIn = () => {
 
+    const text = window.navigator.userAgent
+    const isFirefox = text.includes("Firefox")
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
-    const [lastname, setLastname] = useState('')
 
     const signUp = async() => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -50,34 +52,34 @@ const SignIn = () => {
         setName(e.target.value)
     }
 
-    const handleChangeLastname = e => {
-        setLastname(e.target.value)
-    }
-
     $('html').css({'overflow-y':'scroll'})
 
     return (
-        <div className='loginGrid'>
-            <h1 className='text-title-main'>Simulation d'entretien</h1>
-            <hr></hr>
-            <h1 className='connection'>Inscription</h1>
-            <div>
-                <p className='logLabel'>Nom complet :</p>
-                <input className='inputBoxLog' type='text' onChange={handleChangeName}/>
+        <div>
+            {isFirefox ? <div className="text-title-warning">Veuillez utiliser le navigateur Chrome</div> : 
+            <div className='loginGrid'>
+                <h1 className='text-title-main'>Simulation d'entretien</h1>
+                <hr></hr>
+                <h1 className='connection'>Inscription</h1>
+                <div>
+                    <p className='logLabel'>Nom complet :</p>
+                    <input className='inputBoxLog' type='text' onChange={handleChangeName}/>
+                </div>
+                <div>
+                    <p className='logLabel'>Courriel :</p>
+                    <input className='inputBoxLog' type='text' value={email} onChange={handleChangeEmail}/>
+                </div>
+                <div>
+                    <p className='logLabel'>Mot de passe :</p>
+                    <input className='inputBoxLog' type='password' value={password} onChange={handleChangePassword}/>
+                </div>
+                <div className='logBtnContainer'>
+                    <button onClick={() => signUp()} className='logBtn'>S'inscrire</button>
+                    <button onClick={() => login()} className='logBtn2'>Se connecter</button>
+                </div>
+                <div className='warning'>warning</div>
             </div>
-            <div>
-                <p className='logLabel'>Courriel :</p>
-                <input className='inputBoxLog' type='text' value={email} onChange={handleChangeEmail}/>
-            </div>
-            <div>
-                <p className='logLabel'>Mot de passe :</p>
-                <input className='inputBoxLog' type='password' value={password} onChange={handleChangePassword}/>
-            </div>
-            <div className='logBtnContainer'>
-                <button onClick={() => signUp()} className='logBtn'>S'inscrire</button>
-                <button onClick={() => login()} className='logBtn2'>Se connecter</button>
-            </div>
-            <div className='warning'>warning</div>
+            }
         </div>
     )
 }

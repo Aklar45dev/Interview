@@ -1779,6 +1779,20 @@ label{
   padding-bottom: 0.5em
 }
 
+.text-title-warning{
+  color: white;
+  font-size: 2em;
+  font-weight: 700;
+  padding-bottom: 0.5em;
+  z-index: 10000000;
+  background-color: rgb(255, 0, 0);
+  margin: 0.5em;
+  padding: 2em;
+  display: block;
+  position: absolute;
+  width: -moz-available;
+}
+
 .startBtn{
   position: relative;
   justify-self: center;
