@@ -181,6 +181,12 @@ time, mark, audio, video {
   transition: 0.2s;
 }
 
+hr{
+  width: 100%;
+  opacity: 0.1;
+  margin-bottom: 1.5em;
+}
+
 .switch-btn:hover{
   filter: brightness(0.7);
  transition: 0.2s;
@@ -329,7 +335,7 @@ time, mark, audio, video {
 }
 
 html{
-  background-color: black;
+  background-color: rgb(12, 12, 12);
 }
 
 .App {  
@@ -759,7 +765,7 @@ progress::-webkit-progress-value {
 
 .loginGrid{
   padding-top: 1em;
-  background-color: #111111;
+  background-color: #11111100;
   border-radius: 60px;
   display: flex;
   flex-direction: column;
@@ -859,7 +865,7 @@ a {
   display: block;
   align-self:flex-end;
   width: 100%;
-  background-image:linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
+  height: auto;
 }
 
 .controls-bar {
@@ -1644,7 +1650,7 @@ label{
   display: flex;
   position: fixed;
   pointer-events: none;
-  background-color:rgba(0, 0, 0, 0.7);
+  background-color:rgba(12, 12, 12, 1);
 }
 
 .menu-container{
@@ -1762,6 +1768,13 @@ label{
 .text-title-main{
   color: white;
   font-size: 4em;
+  font-weight: 700;
+  padding-bottom: 0.5em
+}
+
+.text-title-main-home{
+  color: white;
+  font-size: 5em;
   font-weight: 700;
   padding-bottom: 0.5em
 }
@@ -2163,7 +2176,14 @@ label{
     align-self:flex-end;
     width: 100%;
     background-image:linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
-    transform: translateY(1.7em);
+  }
+
+  .lowerMenu{
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 0.5em;
   }
 
   .timeStampText{
@@ -2209,7 +2229,7 @@ label{
 
   .loginGrid{
     padding-top: 2em;
-    background-color: #111111;
+    background-color: #11111100;
     border-radius: 60px;
     display: flex;
     flex-direction: column;
@@ -2278,9 +2298,20 @@ label{
 
 .text-title-main{
   color: white;
-  font-size: 2em;
+  font-size: 3.5em;
   font-weight: 700;
   padding-bottom: 0.5em;
+  display: flex;
+  text-align: center;
+}
+
+.text-title-main-home{
+  color: white;
+  font-size: 2em;
+  font-weight: 700;
+  padding-bottom: 0.25em;
+  display: flex;
+  text-align: center;
 }
 
 .dropMenu{

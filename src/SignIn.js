@@ -59,6 +59,7 @@ const SignIn = () => {
     return (
         <div className='loginGrid'>
             <h1 className='text-title-main'>Simulation d'entretien</h1>
+            <hr></hr>
             <h1 className='connection'>Inscription</h1>
             <div>
                 <p className='logLabel'>Nom complet :</p>
