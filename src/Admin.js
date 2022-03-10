@@ -16,11 +16,15 @@ const Admin = () => {
     const interviewVideos = videoUrls.interviewVideos
 
     useEffect(() => {
-        UpdateState()
         $("#pop").css({'display':'none'})
         $("#delete").css({'border': '2.5px solid rgb(255, 0, 0)', 'color': 'rgba(255, 0, 0, 1)'})
         $("#ok").css({'border': '2.5px solid rgb(255, 0, 0)', 'color': 'rgba(255, 0, 0, 1)'})
+        UpdateState()
     },[])
+
+    useEffect(() => {
+        filterText(scripts[Math.ceil(((interviewId+1)/2)-1)])
+    }, [user])
 
     const updateUser = () => {
         users.forEach(user => {
@@ -33,10 +37,11 @@ const Admin = () => {
                     allUrls.push(interviewVideos[index])
                     allUrls.push(user.urls[index])
                     allScripts.push(user.script[index])
-                });
+                })
+                setUser(user)
                 setUrls(allUrls)
                 setScripts(allScripts)
-                setUser(user)
+                filterText()
             }
         })
     }
@@ -123,7 +128,9 @@ const Admin = () => {
             const objArr = []
             myArray.forEach(el => {
                 let arr = el.split(`'`)
-                noComaArray.push(arr[arr.length-1])
+                if(el.length > 3){
+                    noComaArray.push(arr[arr.length-1])
+                }
             })
             noComaArray.forEach(e => {
                 let value = dict[e] === undefined ? 0 : dict[e]
@@ -139,7 +146,9 @@ const Admin = () => {
             
             for (const [key, value] of Object.entries(sorted)) {
                 if(isNaN(parseInt(key))){
-                    objArr.push({key: key, num: value})
+                    if(objArr.length < 10) {
+                        objArr.push({key: key, num: value})
+                    }
                 }
             }
             
