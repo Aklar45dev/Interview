@@ -25,6 +25,21 @@ time, mark, audio, video {
   font-weight: 700;
 }
 
+.btn-wrapper{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 0.5em;
+}
+
+.idBtn  {
+  background: transparent;
+  margin: 0.5em;
+  padding: 0.5em;
+  width: 35px;
+  color: white;
+  border-radius: 0.5em;
+}
 
 .custom-select select {
   display: none; /*hide original SELECT element:*/
@@ -2362,6 +2377,10 @@ label{
   justify-content: left;
   margin-left: 3%;
   margin-right: 3%;
+}
+
+.btn-wrapper{
+  display: block;
 }
 
 }

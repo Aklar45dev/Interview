@@ -3,6 +3,7 @@ import $ from 'jquery'
 import videoUrls from './videoUrls'
 import VideoPlayer from './components/VideoPlayer'
 import Option from './Option'
+import Button from './Button'
 import _ from 'lodash'  
 
 const Admin = () => {
@@ -87,6 +88,10 @@ const Admin = () => {
         }
     }
 
+    const setQuestion = (num) => {
+        setInterviewId(num*2)
+    }
+
     const setQuestionId = (num) => {
         if(interviewId+num >= 0){
             if(num === -1){
@@ -151,9 +156,7 @@ const Admin = () => {
                     }
                 }
             }
-            
             setOccurence(objArr)
-
         }
 
     }
@@ -182,6 +185,9 @@ const Admin = () => {
             </div>
             <div className='btns-recording'>
                 <button className='record-btn' id="delete" onClick={() => ShowPopUp(true)}>Supprimer l'entretien</button>
+            </div>
+            <div className="btn-wrapper">
+                {interviewVideos.map((url, i) => <Button key={i} id={i} setQuestion={setQuestion} />) }
             </div>
             <div className='replay-container' id="replay-ui">
                 <button className='startBtn' onClick={() => reload()}>Revoir</button>
