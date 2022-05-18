@@ -33,12 +33,22 @@ time, mark, audio, video {
 }
 
 .idBtn  {
-  background: transparent;
+  background: #333333;
   margin: 0.5em;
   padding: 0.5em;
   width: 35px;
   color: white;
   border-radius: 0.5em;
+}
+
+.idBtn:hover {
+  cursor: pointer;
+  background: #777777;
+}
+
+.idBtn:active {
+  cursor: pointer;
+  background: #333333;
 }
 
 .custom-select select {
