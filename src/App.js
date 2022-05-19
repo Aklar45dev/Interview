@@ -88,7 +88,7 @@ const App = () => {
                 email: email
                 }}>Entretien</Link>
             </div>
-            {email === 'admin@gmail.com' ? <div className='item-row' onClick={() => toggleMenu()}>
+            {email === 'boutin.nancy@csob.qc.ca' ? <div className='item-row' onClick={() => toggleMenu()}>
               <img alt="img" src='../images/admin.png' />
               <Link className="menu-text" to="/dashboard">Administrateur</Link>
             </div> : <div/>}
@@ -106,7 +106,7 @@ const App = () => {
       </Switch> : 
       <Switch>
         <Route path='/recording' component={Interview} />
-        {email === 'admin@gmail.com' ? 
+        {email === 'boutin.nancy@csob.qc.ca' ? 
         <Route path='/dashboard' component={Admin} /> : <Route path='/login' component={Login} />}
         <Route path='/login' component={Login} />
         <Route path='/register' component={Register} />

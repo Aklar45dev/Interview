@@ -12,6 +12,12 @@ const SignIn = () => {
     const [name, setName] = useState('')
 
     const signUp = async() => {
+        if(!email.includes("csob.qc.ca"))
+        {
+            alert("Utiliser votre email du CFP")
+            return
+        }
+        
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((userCredential) => {
                 sendProfil()
@@ -19,7 +25,7 @@ const SignIn = () => {
             })
             .catch((error) => {
                 alert(error.message)
-            })
+        })
     }
 
     const sendProfil = () => {

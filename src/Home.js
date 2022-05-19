@@ -23,7 +23,7 @@ const Home = props => {
                 <video id='homeVid' className="homeVideo" src="https://cfp-secretariat.s3.us-east-2.amazonaws.com/y2meta.com+-+Capsule+secr%C3%A9tariat+-+Employeur.mp4" preload="auto" autoPlay='autoplay' loop muted/>
                 <div className="start-container">
                     <h1 className='text-title-main-home'>Simulation d'entretien</h1>
-                    {props.email === 'admin@gmail.com' ? 
+                    {props.email === 'boutin.nancy@csob.qc.ca' ? 
                     <Link to='/dashboard' className='startBtn'>Administrateur</Link> :
                     <Link to='/recording' className='startBtn'>Lancer l'entretien</Link>
                     }

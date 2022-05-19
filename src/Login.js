@@ -13,7 +13,7 @@ const Login = () => {
     const login = () => {
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            if(email === 'admin@gmail.com'){
+            if(email === 'boutin.nancy@csob.qc.ca'){
                 window.location.href = "/";
             }
             else {
