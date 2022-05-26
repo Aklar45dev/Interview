@@ -174,9 +174,9 @@ const Admin = () => {
             </div>
             <div className='page-title-video'>Administrateur</div>
             <div id="question-selector" className="video-selector">
-                <button className="select-btn" onClick={() => setQuestionId(-1)}>-</button>
+                <button className="select-btn" onClick={() => setQuestionId(-1)}>{`<`}</button>
                 <p className='question-id'>{`${interviewId% 2 === 0 ? "Question" : "Réponse"} ${Math.ceil(((interviewId+1)/2)-1)+1}`}</p>
-                <button className="select-btn" onClick={() => setQuestionId(1)}>+</button>
+                <button className="select-btn" onClick={() => setQuestionId(1)}>{`>`}</button>
             </div>
             <div className='page-title-video'>
                 <select className="dropMenu" onChange={() => updateUser()} name="users" id="users">
