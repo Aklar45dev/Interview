@@ -223,7 +223,7 @@ const Interview = () => {
                         .then(url => {
                             let newUrls = urls
                             let newScripts = scripts
-                            newScripts[interviewId] = results[(results.length)-1].transcript
+                            //newScripts[interviewId] = results[(results.length)-1].transcript
                             if (newUrls !== undefined){
                                 newUrls[interviewId] = url
                             }
