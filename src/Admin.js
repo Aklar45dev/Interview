@@ -18,6 +18,7 @@ const Admin = () => {
 
     useEffect(() => {
         $("#pop").css({'display':'none'})
+        $("#pop-profile").css({'display':'none'})
         $("#delete").css({'border': '2.5px solid rgb(255, 0, 0)', 'color': 'rgba(255, 0, 0, 1)'})
         $("#ok").css({'border': '2.5px solid rgb(255, 0, 0)', 'color': 'rgba(255, 0, 0, 1)'})
         UpdateState()
@@ -113,6 +114,10 @@ const Admin = () => {
         $("#pop").css({'display':`${show === true ? 'grid' : 'none'}`})
     }
 
+    const ShowPopUpProfile = (show) => {
+        $("#pop-profile").css({'display':`${show === true ? 'grid' : 'none'}`})
+    }
+
     const Delete = () => {
         $("#pop").css({'display':'none'})
         const requestOptions = {
@@ -122,6 +127,17 @@ const Admin = () => {
         fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/${user.id}`, requestOptions )
             .then(response => console.log(response.json))
             .then(window.location.reload(false))
+    }
+
+    const DeleteUser = () => {
+        $("#pop-profile").css({'display':'none'})
+        const requestOptions = {
+            method: 'DELETE',
+            mode: 'cors',
+        }
+        fetch(`https://tbtnq4ncg5.execute-api.us-east-2.amazonaws.com/Prod/interviews/${user.id}`, requestOptions )
+            .then(response => console.log(response.json))
+            //.then(window.location.reload(false))
     }
 
     const filterText = text => {
@@ -172,6 +188,13 @@ const Admin = () => {
                     <button className='record-btn' onClick={() => ShowPopUp(false)}>Non</button>
                 </div>
             </div>
+            <div id="pop-profile" className="popUp">
+                <div className="popUp-text">Supprimer le profile de {user.name}?</div>
+                <div className="popUp-btns">
+                    <button id="ok" className='record-btn' onClick={() => DeleteUser()}>Oui</button>
+                    <button className='record-btn' onClick={() => ShowPopUpProfile(false)}>Non</button>
+                </div>
+            </div>
             <div className='page-title-video'>Administrateur</div>
             <div id="question-selector" className="video-selector">
                 <button className="select-btn" onClick={() => setQuestionId(-1)}>{`<`}</button>
@@ -180,7 +203,13 @@ const Admin = () => {
             </div>
             <div className='page-title-video'>
                 <select className="dropMenu" onChange={() => updateUser()} name="users" id="users">
-                    {users && users.map(user => <Option key={user.id} name={user.name} />)}
+                    {users && users.map(user => {
+                        //if(user.name !== ''){
+                            
+                            return(
+                            <Option key={user.id} name={user.name} />)
+                        //}
+                    })}
                 </select>
             </div>
             <div className='btns-recording'>
@@ -192,9 +221,11 @@ const Admin = () => {
             <div className='replay-container' id="replay-ui">
                 <button className='startBtn' onClick={() => reload()}>Revoir</button>
             </div>
+            {urls[interviewId+1] === undefined ? <div className="no-video">Pas de réponse</div> : 
             <div id="player" className='video-container'>
                 <VideoPlayer id="mainVideo" src={urls[interviewId]} end={endPlay} title={`Question ${Math.ceil(((interviewId+1)/2)-1)+1}`} />
-            </div>
+            </div>}
+            
             {interviewId% 2 === 0 ? <div/> : 
             <div className="script-container">
                 <div className="script-title">Transcription : </div>
