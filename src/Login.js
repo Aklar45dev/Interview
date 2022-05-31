@@ -25,6 +25,30 @@ const Login = () => {
         })
     }
 
+    const actionCodeSettings = {
+        // URL you want to redirect back to. The domain (www.example.com) for this
+        // URL must be in the authorized domains list in the Firebase Console.
+        url: 'http://localhost:3000/',
+        // This must be true.
+        handleCodeInApp: true,
+        iOS: {
+          bundleId: 'com.example.ios'
+        },
+        android: {
+          packageName: 'com.example.android',
+          installApp: true,
+          minimumVersion: '12'
+        },
+        dynamicLinkDomain: 'example.page.link'
+      };
+      
+
+      const auth = firebase.auth()
+
+    const reset = () => {
+        firebase.auth().sendPasswordResetEmail('racj22@uqat.ca', {url: 'http://localhost:3000/'})
+    }
+
     const handleChangeEmail = e => {
         setEmail(e.target.value)
     }
@@ -62,7 +86,4 @@ const Login = () => {
 }
 
 export default Login
-/*
-admin@gmail.com
-123123
-            */
+//<button onClick={() => reset()} className='logBtn2'>Reset mot de passe</button>

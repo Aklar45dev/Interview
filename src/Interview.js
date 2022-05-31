@@ -299,8 +299,12 @@ const Interview = () => {
                     <button id="rec" className="Rec button-rec">Recording</button>
                 </div>
                 <div id="state" className="state-label">Replay</div>
-                <video id="recording" className="record-video-canvas" ref={recordWebcam.webcamRef} autoPlay muted/>
-                <video id="preview" className="record-video-canvas" ref={recordWebcam.previewRef} autoPlay />
+                <div className="ans-container">
+                    <video id="recording" className="record-video-canvas" ref={recordWebcam.webcamRef} autoPlay muted/>
+                </div>
+                <div className="ans-container">
+                    <video id="preview" className="record-video-canvas" ref={recordWebcam.previewRef} autoPlay />
+                </div>
                 <div className="ans-container">
                     <video id="currentAnswer" className="record-video-canvas" src={urls[interviewId]} />
                 </div>
