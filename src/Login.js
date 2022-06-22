@@ -28,7 +28,7 @@ const Login = () => {
     const actionCodeSettings = {
         // URL you want to redirect back to. The domain (www.example.com) for this
         // URL must be in the authorized domains list in the Firebase Console.
-        url: 'http://localhost:3000/',
+        url: 'http://localhost:3000/login',
         // This must be true.
         handleCodeInApp: true,
         iOS: {
@@ -38,15 +38,26 @@ const Login = () => {
           packageName: 'com.example.android',
           installApp: true,
           minimumVersion: '12'
-        },
-        dynamicLinkDomain: 'example.page.link'
+        }
       };
       
 
       const auth = firebase.auth()
 
     const reset = () => {
-        firebase.auth().sendPasswordResetEmail('racj22@uqat.ca', {url: 'http://localhost:3000/'})
+        firebase.auth().sendPasswordResetEmail("racj22@uqat.ca", {url: "http://localhost:3000/login"})
+        .then(() => {
+            // Password reset email sent!
+            console.log('reset sent')
+
+            // ..
+          })
+          .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(error)
+            // ..
+          });
     }
 
     const handleChangeEmail = e => {
@@ -79,6 +90,7 @@ const Login = () => {
                 <div className='logBtnContainer'>
                     <button onClick={() => login()} className='logBtn'>Se connecter</button>
                     <button onClick={() => signin()} className='logBtn2'>S'inscrire</button>
+                    <button onClick={() => reset()} className='logBtn2'>Reset mot de passe</button>
                 </div>
             </div>}
         </div>
@@ -86,4 +98,3 @@ const Login = () => {
 }
 
 export default Login
-//<button onClick={() => reset()} className='logBtn2'>Reset mot de passe</button>

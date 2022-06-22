@@ -44,7 +44,7 @@ const Interview = () => {
         $("#previous").css({'display':'inline'})
         $("#state").html('Preview')
         setPreview(false)
-        $("#retake").css({'display':'inline'})
+        //$("#retake").css({'display':'inline'})
         $("#stop").css({'display':'none'})
         $("#burger-container").css({'display':'none'})
         $("#next").css({'display':'none'})
@@ -280,22 +280,22 @@ const Interview = () => {
         <div className='no-scroll'>
             <div className='page-title-video'>Enregistrement</div>
             <div id="question-selector" className="video-selector">
-                <button className="select-btn" onClick={() => setQuestionId(-1)}>{`<`}</button>
+                {/* <button className="select-btn" onClick={() => setQuestionId(-1)}>{`<`}</button> */}
                 <p className='question-id'>{`Question ${interviewId+1}`}</p>
-                <button className="select-btn" onClick={() => setQuestionId(1)}>{`>`}</button>
+                {/* <button className="select-btn" onClick={() => setQuestionId(1)}>{`>`}</button> */}
             </div>
             <VideoPlayer id="mainVideo" src={interviewVideos[interviewId]} end={endPlay} title={`Question ${interviewId+1}`} />
             <div id="recorder-container">
                 <div className="script-response">{`Réponse ${interviewId+1}`}</div>
                 <div className='btns-recording'>
-                    <button className='switch-btn' id="previous" onClick={() => nextQuestion(0)}>{`<`}</button>
+                    {/*<button className='switch-btn' id="previous" onClick={() => nextQuestion(0)}>{`<`}</button>*/}
                     <button className='record-btn' id="play" onClick={() => playPreview()}>Jouer</button>
                     <button className='record-btn' id="open" onClick={() => openCamera()}>Caméra</button>
                     <button className='record-btn' id="start" onClick={() => startCamera()}>Enregistrer</button>
                     <button className='record-btn' id="upload" onClick={() => handleUpload()}>Save</button>
                     <button className='record-btn' id="retake" onClick={() => retakeRecord()}>Recommencer</button>
                     <button className='record-btn' id="stop" onClick={() => CreateFile()}>Arrêter</button>
-                    <button className='switch-btn' id="next" onClick={() => nextQuestion(1)}>{`>`}</button>
+                    {/*<button className='switch-btn' id="next" onClick={() => nextQuestion(1)}>{`>`}</button>*/}
                     <button id="rec" className="Rec button-rec">Recording</button>
                 </div>
                 <div id="state" className="state-label">Replay</div>

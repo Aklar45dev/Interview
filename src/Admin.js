@@ -33,17 +33,12 @@ const Admin = () => {
             if(user.name === $("#users :selected").text()){
                 let index = -1
                 let allUrls = []
-                let allScripts = []
                 interviewVideos.forEach(loop => {
                     index++
                     allUrls.push(interviewVideos[index])
                     allUrls.push(user.urls[index])
-                    allScripts.push(user.script[index])
                 })
-                setUser(user)
                 setUrls(allUrls)
-                setScripts(allScripts)
-                filterText()
             }
         })
     }
@@ -64,16 +59,31 @@ const Admin = () => {
                         allUrls.push(user.urls[index2])
                         allScripts.push(user.script[index2])
                     })
-                    setUser(user)
+                    
                 }
                 index++
             })
-            setUrls(allUrls)
-            setScripts(allScripts)
-            setUsers(data.Items)
+            let userlist = []
+            data.Items.forEach(user => {
+                if(user.urls.length != 0){
+                    userlist.push(user)
+                }
+            })
+            
+            let userUrls = []
+            let index3 = -1 
+            interviewVideos.forEach(el => {
+                index3++
+                userUrls.push(interviewVideos[index3])
+                userUrls.push(userlist[0].urls[index3])
+            })
+
+            setUsers(userlist)
+            setUrls(userUrls)
+
         })
     }
-            
+
     const reload = () => {
         $("#question-selector").css({'display':'flex'})
         $("#replay-ui").css({'display':'none'})
@@ -204,11 +214,8 @@ const Admin = () => {
             <div className='page-title-video'>
                 <select className="dropMenu" onChange={() => updateUser()} name="users" id="users">
                     {users && users.map(user => {
-                        //if(user.name !== ''){
-                            
                             return(
                             <Option key={user.id} name={user.name} />)
-                        //}
                     })}
                 </select>
             </div>
